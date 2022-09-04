@@ -1,0 +1,29 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    username: root
+    password: 111111
+    url: jdbc:mysql://localhost:3306/managestage?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+      #security:
+      # user:
+      #  name: user
+    # password: 111111
+d
+#允许循环依赖
+spring.main.allow-circular-references: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+
+# Redis 配置
+spring.redis.host: localhost
+spring.redis.port: 6379
+
+
+wpca:
+  jwt:
+    header: Authorization
+    expire: 604800 #7天
+    secret: xrjert123jkhi80134ghjk3ghjkfk543
