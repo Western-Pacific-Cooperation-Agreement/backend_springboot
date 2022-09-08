@@ -1,12 +1,15 @@
 package com.wpca.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author WPCA
@@ -28,6 +31,10 @@ public class SysUser extends BaseEntity {
      */
     private String password;
 
+    /**
+     * 手机号
+     */
+    private String phone;
     /**
      * 部门协会id
      */
@@ -77,6 +84,9 @@ public class SysUser extends BaseEntity {
      * （0无认证状态，1认证过，2审核状态，3禁用、4注销）
      */
     private Integer userStatu;
+
+    @TableField(exist = false)
+    private List<SysRole> roles;
 
 
 }

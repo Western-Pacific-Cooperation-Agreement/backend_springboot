@@ -1,12 +1,16 @@
 package com.wpca.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author WPCA
@@ -48,5 +52,7 @@ public class SysRole extends BaseEntity {
      */
     private Integer roleStatu;
 
+    @TableField(exist = false)
+    private List<Long> menuIds = new ArrayList<>();
 
 }

@@ -1,13 +1,17 @@
 package com.wpca.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.wpca.common.dto.SysMenuDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author WPCA
@@ -74,6 +78,13 @@ public class SysMenu extends BaseEntity {
      * 菜单状态（0禁用，1启用）
      */
     private Integer menuStatu;
+
+    /**
+     * 前端孩子节点
+     */
+
+    @TableField(exist = false)//这里是告诉容器说 此列不存在
+    private List<SysMenu> children = new ArrayList<>();
 
 
 }
