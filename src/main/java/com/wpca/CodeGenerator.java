@@ -62,7 +62,7 @@ public class CodeGenerator {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         //---------------修改地点9.这里的设置url连接报错  解决 找不到数据库database ant
-        dsc.setUrl("jdbc:mysql://localhost:3306/managerstage?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://localhost:3306/managestage?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
         // dsc.setSchemaName("public");
         //---------------修改地点8. 解决报错com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'.
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");

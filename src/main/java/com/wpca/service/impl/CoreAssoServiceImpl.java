@@ -4,7 +4,10 @@ import com.wpca.entity.CoreAsso;
 import com.wpca.mapper.CoreAssoMapper;
 import com.wpca.service.CoreAssoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CoreAssoServiceImpl extends ServiceImpl<CoreAssoMapper, CoreAsso> implements CoreAssoService {
 
+
+    @Override
+    public List<CoreAsso> findAll(CoreAsso coreAsso) {
+        return null;
+    }
+
+    @Override
+    public void delById(Long id) {
+
+    }
 }
