@@ -3,9 +3,11 @@ package com.wpca.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author WPCA
@@ -27,5 +29,9 @@ public class ExpansionCollection extends BaseEntity {
      */
     private Long actId;
 
+    /**
+     * 活动
+     */
+    private LocalDateTime collectionDate;
 
 }

@@ -12,6 +12,7 @@ import com.wpca.entity.SysRole;
 import com.wpca.entity.SysUser;
 import com.wpca.entity.SysUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -51,7 +52,7 @@ public class SysUserController extends BaseController {
      * 用户自己修改密码
      *
      */
-    //@PostMapping("/updataPass")
+    @PostMapping("/updataPass")
     public Result updataPass(@Validated @RequestBody PassDto passDto, Principal principal) {
         SysUser sysUser = sysUserService.getByUsername(principal.getName());
         boolean matches = passwordEncoder.matches(passDto.getCurrentPass(), sysUser.getPassword());
@@ -68,7 +69,7 @@ public class SysUserController extends BaseController {
      * 超级管理员重置密码
      */
     @PostMapping("/repass")
-    //@PreAuthorize("hasAuthority('sys:user:repass')")
+    @PreAuthorize("hasAuthority('sys:user:repass')")
     public Result repass(@RequestBody Long userId) {
         SysUser sysUser = sysUserService.getById(userId);
         sysUser.setPassword(passwordEncoder.encode(Const.DEFAULT_PASSWORD));
@@ -78,7 +79,7 @@ public class SysUserController extends BaseController {
     }
 
     @GetMapping("/list")
-    //@PreAuthorize("hasAuthority('sys:user:list')")
+    @PreAuthorize("hasAuthority('sys:user:list')")
     public Result page(String username) {
 
 
@@ -97,7 +98,7 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/save")
-    //@PreAuthorize("hasAuthority('sys:user:save')")
+    @PreAuthorize("hasAuthority('sys:user:save')")
     public Result save(@Validated @RequestBody SysUser sysUser) {
         sysUser.setCreateTime(LocalDateTime.now());
         sysUser.setUserStatu(Const.STATUS_ON);
@@ -115,7 +116,7 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/update")
-    //@PreAuthorize("hasAuthority('sys:user:update')")
+    @PreAuthorize("hasAuthority('sys:user:update')")
     public Result update(@Validated @RequestBody SysUser sysUser) {
         sysUser.setUpdateTime(LocalDateTime.now());
         if (StrUtil.isNotBlank(sysUser.getPassword())) {
