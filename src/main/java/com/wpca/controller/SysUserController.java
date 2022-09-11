@@ -128,7 +128,7 @@ public class SysUserController extends BaseController {
     }
 
     @PostMapping("/delete")
-    //@PreAuthorize("hasAuthority('sys:user:delete')")
+    @PreAuthorize("hasAuthority('sys:user:delete')")
     public Result delete(@RequestBody Long[] ids){
         sysUserService.removeByIds(Arrays.asList(ids));
         sysUserRoleService.remove(new QueryWrapper<SysUserRole>().in("user_id", ids));
@@ -141,7 +141,7 @@ public class SysUserController extends BaseController {
      */
     @Transactional
     @PostMapping("/role/{userId}")
-    //@PreAuthorize("hasAuthority('sys:user:role')")
+    @PreAuthorize("hasAuthority('sys:user:role')")
     public Result perm(@PathVariable Long userId, @RequestBody Long[] roleIds) {
         System.out.println(roleIds);
         List<SysUserRole> userRoles = new ArrayList<>();
@@ -158,5 +158,7 @@ public class SysUserController extends BaseController {
         sysUserService.clearUserAuthorityInfo(sysUser.getUsername());
         return Result.succ(roleIds);
     }
+
+
 }
 

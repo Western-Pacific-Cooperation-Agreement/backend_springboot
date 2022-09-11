@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/sys/role")
 public class SysRoleController extends BaseController {
 
-    // @PreAuthorize("hasAuthority('sys:role:list')")
+     @PreAuthorize("hasAuthority('sys:role:list')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id) {
 
@@ -47,7 +47,7 @@ public class SysRoleController extends BaseController {
         return Result.succ(sysRole);
     }
 
-    // @PreAuthorize("hasAuthority('sys:role:list')")
+     @PreAuthorize("hasAuthority('sys:role:list')")
     @GetMapping("/list")
     public Result list(String name) {
 
@@ -60,7 +60,7 @@ public class SysRoleController extends BaseController {
     }
 
    @PostMapping("/save")
-   //@PreAuthorize("hasAuthority('sys:role:save')")
+   @PreAuthorize("hasAuthority('sys:role:save')")
     public Result save(@Validated @RequestBody SysRole sysRole) {
 
         sysRole.setCreateTime(LocalDateTime.now());
@@ -71,7 +71,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/update")
-    //  @PreAuthorize("hasAuthority('sys:role:update')")
+      @PreAuthorize("hasAuthority('sys:role:update')")
     public Result update(@Validated @RequestBody SysRole sysRole) {
 
         sysRole.setUpdateTime(LocalDateTime.now());
@@ -85,8 +85,8 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/delete")
-    //  @PreAuthorize("hasAuthority('sys:role:delete')")
-   // @Transactional
+      @PreAuthorize("hasAuthority('sys:role:delete')")
+    @Transactional
     public Result info(@RequestBody Long[] ids) {
 
         sysRoleService.removeByIds(Arrays.asList(ids));
@@ -104,9 +104,9 @@ public class SysRoleController extends BaseController {
         return Result.succ("");
     }
 
-    //@Transactional
+    @Transactional
      @PostMapping("/perm/{roleId}")
-    //@PreAuthorize("hasAuthority('sys:role:perm')")
+    @PreAuthorize("hasAuthority('sys:role:perm')")
     public Result info(@PathVariable("roleId") Long roleId, @RequestBody Long[] menuIds) {
 
         List<SysRoleMenu> sysRoleMenus = new ArrayList<>();

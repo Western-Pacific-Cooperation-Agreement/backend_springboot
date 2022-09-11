@@ -250,7 +250,6 @@ public class CoreActController extends BaseController{
          *
          * @methodName getActUser
          * @description 获得负责人个人信息
-
          * @param id
          * @return com.wpca.common.lang.Result
          * @CreateTime 9:58 2022/9/11
@@ -265,7 +264,6 @@ public class CoreActController extends BaseController{
     }
 
         /**
-         *
          * @methodName getActType
          * @description 获得活动类型
          * @return com.wpca.common.lang.Result
@@ -273,9 +271,8 @@ public class CoreActController extends BaseController{
          * @UpdateTime 9:58 2022/9/11
          */
 
-@GetMapping("/get/actType")
+    @GetMapping("/get/actType")
     public Result getActType(){
-
         return Result.succ(coreActNatureService.list());
     }
 
@@ -344,9 +341,7 @@ public class CoreActController extends BaseController{
 
         SysUser user = sysUserService.getByUsername(username);
 
-        expansionCollectionService.remove(new QueryWrapper<ExpansionCollection>().eq("user_id",user.getId()).eq("act_id",id)
-                ) ;
-
+        expansionCollectionService.remove(new QueryWrapper<ExpansionCollection>().eq("user_id",user.getId()).eq("act_id",id)) ;
 
         return Result.succ("取消了收藏");
     }

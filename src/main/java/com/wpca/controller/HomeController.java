@@ -24,8 +24,6 @@ public class HomeController extends BaseController{
 
     @Autowired
     CoreActService coreActService;
-
-
     /**
      *
      * @methodName getRotationChart
@@ -66,5 +64,8 @@ public class HomeController extends BaseController{
     public Result getRecommendAct(){
         return Result.succ(coreActService.list());
     }
+
+
+
 
 }
