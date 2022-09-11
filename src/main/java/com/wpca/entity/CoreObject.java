@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author WPCA
@@ -17,7 +17,7 @@ public class CoreObject extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Long actId;
+
 
     /**
      * 对象名称

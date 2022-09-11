@@ -58,6 +58,15 @@ public class CoreActController extends BaseController{
     @Autowired
     SysRoleService sysRoleService;
 
+    @Autowired
+    CoreObjectService coreObjectService;
+
+    @Autowired
+    CoreAssoService coreAssoService;
+
+    @Autowired
+    CoreActNatureService coreActNatureService;
+
 
     /********************************-----------私有方法-----------*****************************/
     private String getUsername(){
@@ -206,6 +215,70 @@ public class CoreActController extends BaseController{
         return Result.succ(sysRoleService.list());
     }
 
+    /**
+     *
+     * @methodName getActObject
+     * @description 获得活动对象
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 8:17 2022/9/11
+     * @UpdateTime 8:17 2022/9/11
+     */
+
+    @GetMapping("/get/actObject")
+    public Result getActObject(){
+
+        return Result.succ(coreObjectService.list());
+
+    }
+
+
+    /**
+     *
+     * @methodName getActAsso
+     * @description 活动活动部门
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 8:18 2022/9/11
+     * @UpdateTime 8:18 2022/9/11
+     */
+
+    @GetMapping("/get/actAsso")
+    public Result getActAsso(){
+        return Result.succ(coreAssoService.list());
+    }
+
+        /**
+         *
+         * @methodName getActUser
+         * @description 获得负责人个人信息
+
+         * @param id
+         * @return com.wpca.common.lang.Result
+         * @CreateTime 9:58 2022/9/11
+         * @UpdateTime 9:58 2022/9/11
+         */
+
+        @GetMapping("/get/actUser/{id}")
+    public  Result getActUser(@PathVariable Long id){
+        SysUser user = sysUserService.getById(id);
+
+        return Result.succ(user);
+    }
+
+        /**
+         *
+         * @methodName getActType
+         * @description 获得活动类型
+         * @return com.wpca.common.lang.Result
+         * @CreateTime 9:58 2022/9/11
+         * @UpdateTime 9:58 2022/9/11
+         */
+
+@GetMapping("/get/actType")
+    public Result getActType(){
+
+        return Result.succ(coreActNatureService.list());
+    }
+
     /********************************-----------POST-----------*****************************/
 
     @SneakyThrows
@@ -277,6 +350,7 @@ public class CoreActController extends BaseController{
 
         return Result.succ("取消了收藏");
     }
+
     @SneakyThrows
     @PostMapping("/post/cancelSignUpAct")
     public  Result cancelSignUpAct(@RequestBody String json){
@@ -291,6 +365,9 @@ public class CoreActController extends BaseController{
 
         return Result.succ("取消了报名");
     }
+
+
+
 
 
 }
