@@ -39,7 +39,7 @@ public class SysUserController extends BaseController {
     PasswordEncoder passwordEncoder;
 
     @GetMapping("/info/{id}")
-    //@PreAuthorize("hasAuthority('sys:user:list')")
+    @PreAuthorize("hasAuthority('sys:user:list')")
     public Result info(@PathVariable Long id) {
         SysUser user = sysUserService.getById(id);
         Assert.notNull(user, "找不到该管理员！");
