@@ -11,6 +11,7 @@ import com.wpca.common.dto.PassDto;
 import com.wpca.entity.SysRole;
 import com.wpca.entity.SysUser;
 import com.wpca.entity.SysUserRole;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +33,8 @@ import java.util.List;
  * @author WPCA
  * @since 2022-09-04
  */
+
+@Slf4j
 @RestController
 @RequestMapping("/sys/user")
 public class SysUserController extends BaseController {
@@ -54,6 +57,10 @@ public class SysUserController extends BaseController {
      */
     @PostMapping("/updataPass")
     public Result updataPass(@Validated @RequestBody PassDto passDto, Principal principal) {
+
+        log.info("passDot："+passDto.getCurrentPass());
+
+
         SysUser sysUser = sysUserService.getByUsername(principal.getName());
         boolean matches = passwordEncoder.matches(passDto.getCurrentPass(), sysUser.getPassword());
         if (!matches) {

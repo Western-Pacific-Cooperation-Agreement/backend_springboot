@@ -1,19 +1,18 @@
 package com.wpca.controller;
 
-import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
-import com.sun.xml.txw2.output.ResultFactory;
+import com.wpca.common.dto.MyActDto;
+import com.wpca.common.lang.Const;
 import com.wpca.common.lang.Result;
+import com.wpca.entity.CoreAct;
 import com.wpca.entity.CoreUserAct;
 import com.wpca.entity.ExpansionCollection;
 import com.wpca.entity.SysUser;
-import com.wpca.service.CoreUserActService;
-import com.wpca.service.ExpansionCollectionService;
-import com.wpca.service.SysRoleService;
-import com.wpca.service.SysUserService;
+import com.wpca.service.*;
 import com.wpca.ultis.JwtUtils;
 import io.jsonwebtoken.Claims;
+import lombok.SneakyThrows;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +55,9 @@ public class PersonController extends BaseController{
 
     @Autowired
     ExpansionCollectionService expansionCollectionService;
+
+    @Autowired
+    CoreActService coreActService;
 
 
 /**
@@ -121,12 +123,8 @@ private String getUsername(){
     public Result uploadAvatar( MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request,
                                @RequestBody SysUser sysUser
                                ) throws IOException {
-
-
-
         //得到文件map对象
         Map<String, MultipartFile> files = multipartHttpServletRequest.getFileMap();
-
         //得到图片file
         MultipartFile file = files.get("avatar");
         //获得项目绝对路径的static/headImage/id/ 的位置
@@ -187,13 +185,11 @@ private String getUsername(){
 
     @GetMapping("/get/myApplyAct")
     public Result getMyApplyAct(){
-
         SysUser user = sysUserService.getByUsername(getUsername());
-        return Result.succ(coreUserActService.getMap(
-                new QueryWrapper<CoreUserAct>().
-                        eq("user_id",user.getId())
-        ));
-
+        List<CoreAct> maps = coreActService.list(new QueryWrapper<CoreAct>()
+                .eq("user_id", user.getId())
+        );
+        return Result.succ(maps);
     }
 
     /**
@@ -207,12 +203,23 @@ private String getUsername(){
     public Result getMyCollectAct(){
 
         SysUser user = sysUserService.getByUsername(getUsername());
-        return Result.succ(
-                expansionCollectionService.getMap(
-                        new QueryWrapper<ExpansionCollection>()
-                                .eq("user_id",user.getId())
 
-        ));
+        List<ExpansionCollection> maps = expansionCollectionService.list(new QueryWrapper<ExpansionCollection>().
+                eq("user_id", user.getId()));
+
+        List<MyActDto> myActDtos =new ArrayList<MyActDto>();
+
+        for( ExpansionCollection map:maps) {
+            MyActDto act=new MyActDto();
+            CoreAct coreAct = coreActService.getOne(new QueryWrapper<CoreAct>().eq("id", map.getActId()));
+            act.setActId(map.getActId());
+            act.setUserActCreateTime(map.getCollectionDate());
+            act.setCoreAct(coreAct);
+            myActDtos.add(act);
+        }
+
+
+        return Result.succ(myActDtos);
 
     }
 
@@ -227,17 +234,153 @@ private String getUsername(){
     @GetMapping("/get/myJoinAct")
     public Result getMyJoinAct(){
         SysUser user = sysUserService.getByUsername(getUsername());
-        Map<String, Object> map = coreUserActService.getMap(
-                new QueryWrapper<CoreUserAct>().
-                        eq("user_id", user.getId()).
-                        eq("act_id", user.getId())
-        );
 
+        List<CoreUserAct> maps = coreUserActService.list(new QueryWrapper<CoreUserAct>().
+                eq("user_id", user.getId()));
 
-        return Result.succ("");
+        List<MyActDto> myActDtos =new ArrayList<MyActDto>();
+
+        for(CoreUserAct map:maps) {
+            MyActDto act=new MyActDto();
+            CoreAct coreAct = coreActService.getOne(new QueryWrapper<CoreAct>().eq("id", map.getActId()));
+            act.setActId(map.getActId());
+            act.setUserActCreateTime(map.getUserActCreateTime());
+            act.setUserId(map.getUserId());
+            act.setUserActReview(map.getUserActReview());
+            act.setUserActStatu(map.getUserActStatu());
+            act.setUserActReviewDate(map.getUserActReviewDate());
+            act.setCoreAct(coreAct);
+            myActDtos.add(act);
+        }
+
+        return Result.succ(myActDtos);
+
     }
 
+    /********************************-----------POST-----------*****************************/
 
+    /**
+     *
+     * @methodName addSignUpAct
+     * @description 添加活动
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:24 2022/9/15
+     * @UpdateTime 21:24 2022/9/15
+     */
+
+    @SneakyThrows
+    @PostMapping("/post/addSignUpAct")
+    public  Result addSignUpAct(@RequestBody String json){
+        JSONObject JSON = new JSONObject(json);
+        Long id =JSON.getLong("id");
+        String username = getUsername();
+
+        SysUser user = sysUserService.getByUsername(username);
+
+        //获得用户活动表实体
+        CoreUserAct userAct=new CoreUserAct();
+        //设置活动id
+        userAct.setActId(id);
+        //设置用户id
+        userAct.setUserId(user.getId());
+        //设置报名时间
+        userAct.setUserActCreateTime(LocalDateTime.now());
+        //设置报名状态
+        userAct.setUserActStatu(Const.USERACT_NotReview);
+
+        coreUserActService.save(userAct);
+
+        return Result.succ("报名成功");
+    }
+
+    /**
+     *
+     * @methodName addCollectedAct
+     * @description 添加收藏
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:24 2022/9/15
+     * @UpdateTime 21:24 2022/9/15
+     */
+
+    @SneakyThrows
+    @PostMapping("/post/addCollectedAct")
+    public  Result addCollectedAct(@RequestBody String json){
+
+        System.out.println("json:"+json);
+        JSONObject JSON = new JSONObject(json);
+        Long id = JSON.getLong("id");
+        String username = getUsername();
+
+        SysUser user = sysUserService.getByUsername(username);
+
+        //获得用户活动表实体
+        ExpansionCollection collection=new ExpansionCollection();
+        //设置活动id
+        collection.setActId(id);
+        //设置用户id
+        collection.setUserId(user.getId());
+
+        //设置日期
+        collection.setCollectionDate(LocalDateTime.now());
+
+        //保存
+        expansionCollectionService.save(collection);
+
+        return Result.succ("收藏成功");
+    }
+
+    /**
+     *
+     * @methodName cancelCollectedAct
+     * @description 取消收藏
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:25 2022/9/15
+     * @UpdateTime 21:25 2022/9/15
+     */
+
+    @SneakyThrows
+    @PostMapping("/post/cancelCollectedAct")
+    public  Result cancelCollectedAct(@RequestBody String json){
+        JSONObject JSON = new JSONObject(json);
+        Long id =JSON.getLong("id");
+
+
+        String username = getUsername();
+
+        SysUser user = sysUserService.getByUsername(username);
+
+        expansionCollectionService.remove(new QueryWrapper<ExpansionCollection>().eq("user_id",user.getId()).eq("act_id",id)) ;
+
+        return Result.succ("取消了收藏");
+    }
+
+    /**
+     *
+     * @methodName cancelSignUpAct
+     * @description 取消报名
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:25 2022/9/15
+     * @UpdateTime 21:25 2022/9/15
+     */
+
+    @SneakyThrows
+    @PostMapping("/post/cancelSignUpAct")
+    public  Result cancelSignUpAct(@RequestBody String json){
+        JSONObject JSON = new JSONObject(json);
+        Long id =JSON.getLong("id");
+        String username = getUsername();
+
+        SysUser user = sysUserService.getByUsername(username);
+
+        //保存
+        coreUserActService.remove(new QueryWrapper<CoreUserAct>().eq("user_id",user.getId()).eq("act_id",id));
+
+        return Result.succ("取消了报名");
+    }
 
 
 }

@@ -278,6 +278,16 @@ public class CoreActController extends BaseController{
 
     /********************************-----------POST-----------*****************************/
 
+    /**
+     *
+     * @methodName addSignUpAct
+     * @description 添加活动
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:24 2022/9/15
+     * @UpdateTime 21:24 2022/9/15
+     */
+
     @SneakyThrows
     @PostMapping("/post/addSignUpAct")
     public  Result addSignUpAct(@RequestBody String json){
@@ -302,6 +312,16 @@ public class CoreActController extends BaseController{
 
         return Result.succ("报名成功");
     }
+
+    /**
+     *
+     * @methodName addCollectedAct
+     * @description 添加收藏
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:24 2022/9/15
+     * @UpdateTime 21:24 2022/9/15
+     */
 
     @SneakyThrows
     @PostMapping("/post/addCollectedAct")
@@ -330,6 +350,16 @@ public class CoreActController extends BaseController{
         return Result.succ("收藏成功");
     }
 
+    /**
+     *
+     * @methodName cancelCollectedAct
+     * @description 取消收藏
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:25 2022/9/15
+     * @UpdateTime 21:25 2022/9/15
+     */
+
     @SneakyThrows
     @PostMapping("/post/cancelCollectedAct")
     public  Result cancelCollectedAct(@RequestBody String json){
@@ -345,6 +375,16 @@ public class CoreActController extends BaseController{
 
         return Result.succ("取消了收藏");
     }
+
+    /**
+     *
+     * @methodName cancelSignUpAct
+     * @description 取消报名
+     * @param json
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 21:25 2022/9/15
+     * @UpdateTime 21:25 2022/9/15
+     */
 
     @SneakyThrows
     @PostMapping("/post/cancelSignUpAct")
