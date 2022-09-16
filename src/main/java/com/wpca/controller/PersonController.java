@@ -1,20 +1,25 @@
 package com.wpca.controller;
 
+import cn.hutool.core.lang.func.Func;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wpca.common.dto.MyActDto;
 import com.wpca.common.lang.Const;
 import com.wpca.common.lang.Result;
-import com.wpca.entity.CoreAct;
-import com.wpca.entity.CoreUserAct;
-import com.wpca.entity.ExpansionCollection;
-import com.wpca.entity.SysUser;
+import com.wpca.entity.*;
 import com.wpca.service.*;
 import com.wpca.ultis.JwtUtils;
 import io.jsonwebtoken.Claims;
+import lombok.Data;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -22,7 +27,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,21 +67,42 @@ public class PersonController extends BaseController{
     CoreActService coreActService;
 
 
-/**
- *
- * @methodName getUsername
- * @description 获得用户名
- * @return java.lang.String
- * @CreateTime 17:27 2022/9/11
- * @UpdateTime 17:27 2022/9/11
- */
 
-private String getUsername(){
-        String jwt = req.getHeader("Authorization");
-        Claims claim = jwtUtils.getClaimByToken(jwt);
-        String username = claim.getSubject();
-        return username;
+
+    /**
+     *
+     * @methodName StringToLocalDateTime
+     * @description   前端传入的格式为 2022-09-06T16:00:00.000Z
+
+     * @param time
+     * @return java.time.LocalDateTime
+     * @CreateTime 20:08 2022/9/16
+     * @UpdateTime 20:08 2022/9/16
+     */
+
+    private String StringToLocalDateTime(String time){
+        time = time.substring(0,19);//2022-09-06T16:00:00
+        time=time.replace('T',' ');//2022-09-06 16:00:00
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime parse = LocalDateTime.parse(time, pattern);
+        return time;
     }
+
+        /**
+         *
+         * @methodName getUsername
+         * @description 获得用户名
+         * @return java.lang.String
+         * @CreateTime 17:27 2022/9/11
+         * @UpdateTime 17:27 2022/9/11
+         */
+
+        private String getUsername(){
+                String jwt = req.getHeader("Authorization");
+                Claims claim = jwtUtils.getClaimByToken(jwt);
+                String username = claim.getSubject();
+                return username;
+            }
 
     /**
      *
@@ -183,14 +211,14 @@ private String getUsername(){
      * @UpdateTime 21:37 2022/9/11
      */
 
-    @GetMapping("/get/myApplyAct")
-    public Result getMyApplyAct(){
-        SysUser user = sysUserService.getByUsername(getUsername());
-        List<CoreAct> maps = coreActService.list(new QueryWrapper<CoreAct>()
-                .eq("user_id", user.getId())
-        );
-        return Result.succ(maps);
-    }
+//    @GetMapping("/get/myApplyAct")
+//    public Result getMyApplyAct(){
+//        SysUser user = sysUserService.getByUsername(getUsername());
+//        List<CoreAct> maps = coreActService.list(new QueryWrapper<CoreAct>()
+//                .eq("user_id", user.getId())
+//        );
+//        return Result.succ(maps);
+//    }
 
     /**
      * @methodName getMyCollectAct
@@ -200,7 +228,7 @@ private String getUsername(){
      * @UpdateTime 21:37 2022/9/11
      */
     @GetMapping("/get/myCollectAct")
-    public Result getMyCollectAct(){
+    public Result getMyCollectAct(String name, String start, String end){
 
         SysUser user = sysUserService.getByUsername(getUsername());
 
@@ -211,7 +239,17 @@ private String getUsername(){
 
         for( ExpansionCollection map:maps) {
             MyActDto act=new MyActDto();
-            CoreAct coreAct = coreActService.getOne(new QueryWrapper<CoreAct>().eq("id", map.getActId()));
+            CoreAct coreAct = coreActService.getOne(new QueryWrapper<CoreAct>().
+                    eq("id", map.getActId())
+                             .like(StrUtil.isNotBlank(name),"act_name",name)
+                            .eq("id", map.getActId())
+                            .ge(StrUtil.isNotEmpty(start),"act_start_date",start)
+                            .le(StrUtil.isNotEmpty(end),"act_start_date",end)
+
+                    );
+            if(coreAct ==null){
+                continue;
+            }
             act.setActId(map.getActId());
             act.setUserActCreateTime(map.getCollectionDate());
             act.setCoreAct(coreAct);
@@ -222,7 +260,6 @@ private String getUsername(){
         return Result.succ(myActDtos);
 
     }
-
     /**
      *
      * @methodName getMyJoinAct
@@ -232,17 +269,39 @@ private String getUsername(){
      * @UpdateTime 21:37 2022/9/11
      */
     @GetMapping("/get/myJoinAct")
-    public Result getMyJoinAct(){
+    public Result getMyJoinAct(String name, String start, String end){
         SysUser user = sysUserService.getByUsername(getUsername());
 
-        List<CoreUserAct> maps = coreUserActService.list(new QueryWrapper<CoreUserAct>().
-                eq("user_id", user.getId()));
+
+        if(StrUtil.isNotBlank(start)){
+            start=StringToLocalDateTime(start);
+        }
+        if(StrUtil.isNotBlank(end)){
+            end=StringToLocalDateTime(end);
+        }
+
+
+
+        List<CoreUserAct> maps = coreUserActService.list(
+                new QueryWrapper<CoreUserAct>()
+                .eq("user_id", user.getId())
+
+        );
 
         List<MyActDto> myActDtos =new ArrayList<MyActDto>();
-
+        //然后获取用户 参加的活动的信息，
         for(CoreUserAct map:maps) {
             MyActDto act=new MyActDto();
-            CoreAct coreAct = coreActService.getOne(new QueryWrapper<CoreAct>().eq("id", map.getActId()));
+            CoreAct coreAct = coreActService.getOne(new QueryWrapper<CoreAct>()
+                    .like(StrUtil.isNotBlank(name),"act_name",name)
+                    .eq("id", map.getActId())
+                    .ge(StrUtil.isNotEmpty(start),"act_start_date",start)
+                    .le(StrUtil.isNotEmpty(end),"act_start_date",end)
+            );
+            if(coreAct ==null){
+                continue;
+            }
+            System.out.println(map.getActId());
             act.setActId(map.getActId());
             act.setUserActCreateTime(map.getUserActCreateTime());
             act.setUserId(map.getUserId());
@@ -250,12 +309,17 @@ private String getUsername(){
             act.setUserActStatu(map.getUserActStatu());
             act.setUserActReviewDate(map.getUserActReviewDate());
             act.setCoreAct(coreAct);
+
             myActDtos.add(act);
         }
 
         return Result.succ(myActDtos);
 
     }
+
+
+
+
 
     /********************************-----------POST-----------*****************************/
 
@@ -381,6 +445,8 @@ private String getUsername(){
 
         return Result.succ("取消了报名");
     }
+
+
 
 
 }

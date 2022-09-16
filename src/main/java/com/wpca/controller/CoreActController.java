@@ -389,12 +389,14 @@ public class CoreActController extends BaseController{
     @SneakyThrows
     @PostMapping("/post/cancelSignUpAct")
     public  Result cancelSignUpAct(@RequestBody String json){
+
         JSONObject JSON = new JSONObject(json);
+
         Long id =JSON.getLong("id");
+
         String username = getUsername();
 
         SysUser user = sysUserService.getByUsername(username);
-
         //保存
         coreUserActService.remove(new QueryWrapper<CoreUserAct>().eq("user_id",user.getId()).eq("act_id",id));
 

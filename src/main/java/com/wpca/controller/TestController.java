@@ -1,12 +1,19 @@
 package com.wpca.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wpca.common.lang.Result;
+import com.wpca.entity.CoreAct;
+import com.wpca.service.CoreActService;
 import com.wpca.service.CoreAssoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @title: TestController
  * @Author Huang Jinpo
@@ -22,6 +29,10 @@ public class TestController {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    CoreActService coreActService;
+
 
     @GetMapping("/test")
     public Result test(){
@@ -41,4 +52,20 @@ public class TestController {
         return Result.succ(password);
     }
 
+    @GetMapping("/test/getone")
+    public Result getone() {
+                                                            //2022-09-06T16:00:00.000Z
+//        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.000Z");
+//        String dateStr = "2022-09-06 16:00:00.000Z";
+//        LocalDateTime date2 = LocalDateTime.parse(dateStr, fmt);
+//        System.out.println(date2);
+        String time="2022-09-06T16:00:00.000Z";
+        time = time.substring(0,19);//2022-09-06T16:00:00
+        time=time.replace('T',' ');//2022-09-06 16:00:00
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime parse = LocalDateTime.parse(time, pattern);
+
+        return Result.succ(parse);
+
+    }
 }

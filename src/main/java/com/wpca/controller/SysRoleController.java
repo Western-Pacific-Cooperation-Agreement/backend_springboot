@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/sys/role")
 public class SysRoleController extends BaseController {
 
-     @PreAuthorize("hasAuthority('sys:role:list')")
+    @PreAuthorize("hasAuthority('sys:role:list')")
     @GetMapping("/info/{id}")
     public Result info(@PathVariable("id") Long id) {
 
@@ -47,13 +47,14 @@ public class SysRoleController extends BaseController {
         return Result.succ(sysRole);
     }
 
-     @PreAuthorize("hasAuthority('sys:role:list')")
+    @PreAuthorize("hasAuthority('sys:role:list')")
     @GetMapping("/list")
     public Result list(String name) {
 
+
         Page<SysRole> pageData = sysRoleService.page(getPage(),
                 new QueryWrapper<SysRole>()
-                        .like(StrUtil.isNotBlank(name), "name", name)
+                        .like(StrUtil.isNotBlank(name), "roleName", name)
         );
 
         return Result.succ(pageData);
@@ -71,7 +72,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/update")
-      @PreAuthorize("hasAuthority('sys:role:update')")
+    @PreAuthorize("hasAuthority('sys:role:update')")
     public Result update(@Validated @RequestBody SysRole sysRole) {
 
         sysRole.setUpdateTime(LocalDateTime.now());
@@ -85,7 +86,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/delete")
-      @PreAuthorize("hasAuthority('sys:role:delete')")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     @Transactional
     public Result info(@RequestBody Long[] ids) {
 
@@ -105,7 +106,7 @@ public class SysRoleController extends BaseController {
     }
 
     @Transactional
-     @PostMapping("/perm/{roleId}")
+    @PostMapping("/perm/{roleId}")
     @PreAuthorize("hasAuthority('sys:role:perm')")
     public Result info(@PathVariable("roleId") Long roleId, @RequestBody Long[] menuIds) {
 
@@ -128,6 +129,8 @@ public class SysRoleController extends BaseController {
 
         return Result.succ(menuIds);
     }
+
+
 
 }
 
