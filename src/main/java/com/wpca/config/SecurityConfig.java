@@ -29,7 +29,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -73,6 +72,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/captcha",
             "/favicon.ico",
 
+
+            "/test/*",
+            "/test",
+            "/pdf/*",
+            "/pdf/pdfTemplate.pdf",
+            "/pdfTemplate.pdf",
+            "/pdf/result/*",
+            "/product/*/*",
+            "/product/*",
+            "/product"
 
     };
 

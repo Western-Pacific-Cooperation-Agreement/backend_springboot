@@ -1,12 +1,15 @@
 package com.wpca.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wpca.common.lang.Result;
 import com.wpca.entity.CoreAct;
 import com.wpca.service.CoreActService;
 import com.wpca.service.CoreAssoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,7 +24,6 @@ import java.time.format.DateTimeFormatter;
  * @Version 1.0
  */
 @RestController
-
 public class TestController {
 
     @Autowired
@@ -68,4 +70,17 @@ public class TestController {
         return Result.succ(parse);
 
     }
+    @RequestMapping ("/test/path")
+    public String lab(){
+        String templatePath = System.getProperty("user.dir") + "/downloadPdfPath/pdfTemplate.pdf";
+        // 生成的新文件路径
+        String fileName = UUID.randomUUID().toString().replace("-","").substring(0,16) +".pdf";
+        String newPDFPath = System.getProperty("user.dir") + "/downloadPdfPath/result/"+ fileName;
+
+        return templatePath+'\n'+newPDFPath+'\n'+"file:"+System.getProperty("user.dir")+"/downloadPdfPath/";
+    }
+//    @RequestMapping ("/test/myPdf.pdf")
+//    public String pdf(){
+//        return "myPdf.pdf";
+//    }
 }

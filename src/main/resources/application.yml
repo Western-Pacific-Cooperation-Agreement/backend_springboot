@@ -6,7 +6,9 @@ spring:
     password: 111111
     url: jdbc:mysql://localhost:3306/managestage?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  web:
+    resources:
+      static-locations: classpath:/static/,classpath:/static/pdf/,classpath:/static/pdf/result
 #  security:
 #    user:
 #      name: user
@@ -27,3 +29,4 @@ wpca:
     header: Authorization
     expire: 604800 #7天
     secret: xrjert123jkhi80134ghjk3ghjkfk543  # 密钥
+
