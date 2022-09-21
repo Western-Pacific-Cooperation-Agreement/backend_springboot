@@ -1,5 +1,6 @@
 package com.wpca.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wpca.common.lang.Result;
 import com.wpca.service.CoreActService;
 import com.wpca.service.ExpansionRotationchartService;
@@ -48,9 +49,8 @@ public class HomeController extends BaseController{
 
     @GetMapping("/get/hotAct")
     public Result getHotAct(){
-            return Result.succ(coreActService.list());
+        return Result.succ(coreActService.page(getPage(1,3),new QueryWrapper<>()));
     }
-
     /**
      *
      * @methodName getHotAct
@@ -62,7 +62,7 @@ public class HomeController extends BaseController{
 
     @GetMapping("/get/recommendAct")
     public Result getRecommendAct(){
-        return Result.succ(coreActService.list());
+        return Result.succ(coreActService.page(getPage(2,3),new QueryWrapper<>()));
     }
 
 

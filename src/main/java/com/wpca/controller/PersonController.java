@@ -1,5 +1,6 @@
 package com.wpca.controller;
 
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.lang.func.Func;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -46,6 +47,9 @@ import java.util.Random;
 @RestController
 public class PersonController extends BaseController{
 
+
+
+
     @Autowired
     SysUserService sysUserService;
 
@@ -65,7 +69,6 @@ public class PersonController extends BaseController{
 
     @Autowired
     CoreActService coreActService;
-
 
 
 
@@ -97,7 +100,7 @@ public class PersonController extends BaseController{
          * @UpdateTime 17:27 2022/9/11
          */
 
-        private String getUsername(){
+        public String getUsername(){
                 String jwt = req.getHeader("Authorization");
                 Claims claim = jwtUtils.getClaimByToken(jwt);
                 String username = claim.getSubject();
@@ -134,71 +137,6 @@ public class PersonController extends BaseController{
     public Result updateUserInfo(@RequestBody  SysUser sysUser){
         sysUserService.updateById(sysUser);
         return Result.succ("更新成功");
-    }
-
-    /**
-     *
-     * @methodName updateAvater
-     * @description 更新头像
-     * @param sysUser
-     * @return com.wpca.common.lang.Result
-     * @CreateTime 17:56 2022/9/11
-     * @UpdateTime 17:56 2022/9/11
-     */
-
-
-    @PostMapping("/post/uploadAvatar")
-    public Result uploadAvatar( MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request,
-                               @RequestBody SysUser sysUser
-                               ) throws IOException {
-        //得到文件map对象
-        Map<String, MultipartFile> files = multipartHttpServletRequest.getFileMap();
-        //得到图片file
-        MultipartFile file = files.get("avatar");
-        //获得项目绝对路径的static/headImage/id/ 的位置
-        String path = ResourceUtils.getURL("classpath:").getPath() + "static/headImage/users/"+sysUser.getId()+"/";
-        //获得项目的根路径+/headImage/  即/headImage/
-        String url = request.getContextPath() + "/headImage/users/"+sysUser.getId()+"/";
-        //创建一个文件
-        File filePath = new File(path);
-
-        System.out.println("文件的保存路径：" + path);
-
-        if (!filePath.exists() && !filePath.isDirectory()) {
-            System.out.println("目录不存在，建立目录:" + filePath);
-            filePath.mkdirs(); // mkdir()不会建立目录,找不到相应路径时返回false;而mkdirs()当目录不存在时则会建立相应目录
-        }
-        //获取原始文件名称(包含格式)
-        String originalFileName = file.getOriginalFilename();
-
-        //获取文件类型，以最后一个`.`为标识 png
-        String type = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-
-        // 新文件名，这里能够根据须要更名
-        String fileName = sysUser.getId()+"_"+ new Random().nextInt(100000)+ "."+ type;
-        //在指定路径下建立一个文件
-        File targetFile = new File(path, fileName); // 未使用outputStream.write()的时候,是一个File对象,保存在内存中,硬盘中看不到,可是可使用这个对象
-        try {
-        // 使用springmvc的transferTo方法上传文件
-            file.transferTo(targetFile);
-        //http://192.168.220.1:8080 +
-            String HostAndPortUrl=request.getRequestURI();
-            //获取该项目的主机和端口号 192.168.220.1:8080 +/headImage/学号/+图片名
-            String img=HostAndPortUrl+ url + fileName;
-
-            System.out.println(img);
-
-
-            sysUser.setAvatar("img");
-
-            sysUserService.updateById(sysUser);
-
-
-            return  Result.succ(sysUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Result.fail(400,"头像上传到本地失败",null);
     }
 
 
@@ -444,6 +382,87 @@ public class PersonController extends BaseController{
         coreUserActService.remove(new QueryWrapper<CoreUserAct>().eq("user_id",user.getId()).eq("act_id",id));
 
         return Result.succ("取消了报名");
+    }
+
+    /**
+     *
+     * @methodName updateAvater
+     * @description 更新头像
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 17:56 2022/9/11
+     * @UpdateTime 17:56 2022/9/11
+     */
+
+
+    @PostMapping("/post/uploadAvatar")
+    public Result uploadAvatar(String username, MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request
+    ) throws IOException {
+        SysUser sysUser = sysUserService.getByUsername(username);
+        System.out.println(sysUser);
+        //得到文件map对象
+        Map<String, MultipartFile> files = multipartHttpServletRequest.getFileMap();
+
+
+        //得到图片file
+        MultipartFile file = files.get("avatar");
+
+        //获得项目绝对路径的static/headImage/id/ 的位置
+        String path = System.getProperty("user.dir") + "/downloadPdfPath/headImage/users/"+username;
+
+
+        //获得项目的根路径+/headImage/  即/headImage/
+        String url = System.getProperty("user.dir") + "/downloadPdfPath/headImage/users/"+username+"/";
+
+
+        //创建一个文件
+        File filePath = new File(path);
+        System.out.println("文件的保存路径：" + path);
+
+
+        if (!filePath.exists() && !filePath.isDirectory()) {
+            System.out.println("目录不存在，建立目录:" + filePath);
+            filePath.mkdirs(); // mkdir()不会建立目录,找不到相应路径时返回false;而mkdirs()当目录不存在时则会建立相应目录
+        }
+
+
+        //获取原始文件名称(包含格式)
+        String originalFileName = file.getOriginalFilename();
+
+
+        //获取文件类型，以最后一个`.`为标识 png
+        String type = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+
+
+        // 新文件名，这里能够根据须要更名
+        String fileName = sysUser.getId()+"_"+ UUID.randomUUID().toString().replace("-","").substring(0,16)+ "."+ type;
+
+
+        //在指定路径下建立一个文件
+        File targetFile = new File(path, fileName); // 未使用outputStream.write()的时候,是一个File对象,保存在内存中,硬盘中看不到,可是可使用这个对象
+
+
+        try {
+            // 使用springmvc的transferTo方法上传文件
+            file.transferTo(targetFile);
+            //http://192.168.220.1:8080 +
+
+            //String HostAndPortUrl=request.getRequestURI();
+            //获取该项目的主机和端口号 192.168.220.1:8080 +/headImage/学号/+图片名
+
+            String img= "http://localhost:18888/product/headImage/users/"+username+"/"+ fileName;
+
+            System.out.println(img);
+
+            sysUser.setAvatar(img);
+
+            sysUserService.updateById(sysUser);
+
+            return  Result.succ(sysUser);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Result.fail(400,"头像上传到本地失败",null);
     }
 
 

@@ -1,12 +1,14 @@
 package com.wpca.controller;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wpca.common.lang.Const;
 import com.wpca.common.lang.Result;
 import com.wpca.entity.*;
+import com.wpca.mapper.CoreActMapper;
 import com.wpca.mapper.SysRoleMapper;
 import com.wpca.mapper.SysUserMapper;
 import com.wpca.mapper.SysUserRoleMapper;
@@ -67,9 +69,11 @@ public class CoreActController extends BaseController{
     @Autowired
     CoreActNatureService coreActNatureService;
 
+    @Autowired
+    CoreActMapper coreActMapper;
 
     /********************************-----------私有方法-----------*****************************/
-    private String getUsername(){
+   public String getUsername(){
         //获得用户的jwt
         String jwt = req.getHeader("Authorization");
 
@@ -275,6 +279,82 @@ public class CoreActController extends BaseController{
     public Result getActType(){
         return Result.succ(coreActNatureService.list());
     }
+
+    @GetMapping("/get/DefultList")
+    public Result getDefultList(){
+        return Result.succ(coreActService.list());
+    }
+
+    @GetMapping("/get/SearchList")
+    public Result getSearchList(String   name,
+                                String   place,
+                                String   start,
+                                String   end,
+                                String   interal,
+                                String   object,
+                                String   number,
+                                String   asso,
+                                String  nature){
+
+
+        long parseLong=0L;
+        int objectInt=0,numberInt=0,assoInt=0,natureInt=0;
+
+        if (StrUtil.isNotEmpty(interal)){
+            parseLong = Long.parseLong(interal);
+        }
+        if (StrUtil.isNotEmpty(object)){
+            objectInt = Integer.parseInt(object);
+        }
+        if (StrUtil.isNotEmpty(number)){
+            numberInt=Integer.parseInt(number);
+        } if (StrUtil.isNotEmpty(asso)){
+            assoInt=Integer.parseInt(asso);
+        }
+        if (StrUtil.isNotEmpty(nature)){
+            natureInt=Integer.parseInt(nature);
+        }
+
+
+
+        List<CoreAct> list = coreActService.list(
+
+                new QueryWrapper<CoreAct>()
+                        .like(StrUtil.isNotBlank(name),"act_name",name)
+                        .like(StrUtil.isNotBlank(name),"act_place",place)
+
+                        .ge(StrUtil.isNotEmpty(start),"act_start_date",start)
+                        .le(StrUtil.isNotEmpty(end),"act_start_date",end)
+                        .eq(StrUtil.isNotEmpty(interal),"act_integral",parseLong)
+                        .eq(StrUtil.isNotEmpty(object),"act_object_id",objectInt)
+                        .eq(StrUtil.isNotEmpty(number),"act_number",numberInt)
+                        .eq(StrUtil.isNotEmpty(asso),"asso_id",assoInt)
+                        .eq(StrUtil.isNotEmpty(nature),"act_nature_id",natureInt)
+
+
+        );
+        return Result.succ(list);
+    }
+
+    @SneakyThrows
+    @PostMapping("/get/SearchListBySQL")
+    public Result getSearchListBySQL(@RequestBody String json){
+
+        JSONObject JSON = new JSONObject(json);
+        String sql = JSON.getString("sql");
+        System.out.println(sql);
+        List<CoreAct> actBySql;
+        try {
+         actBySql = coreActMapper.getActBySql(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail("检索表达式错误");
+        }
+
+        return Result.succ(actBySql);
+    }
+
+
 
     /********************************-----------POST-----------*****************************/
 

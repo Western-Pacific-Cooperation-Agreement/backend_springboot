@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class  SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     LoginFailureHandler loginFailureHandler;
@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/logout",
             "/captcha",
             "/favicon.ico",
-
+            "/person/post/*",
 
             "/test/*",
             "/test",
@@ -79,6 +79,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/pdf/pdfTemplate.pdf",
             "/pdfTemplate.pdf",
             "/pdf/result/*",
+            "/product/*/*/*/*/*",
+            "/product/*/*/*/*",
+            "/product/*/*/*",
             "/product/*/*",
             "/product/*",
             "/product"
@@ -129,5 +132,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
+
+
+
 }
 

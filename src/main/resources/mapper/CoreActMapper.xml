@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wpca.mapper.CoreActMapper">
 
+    <select id="getAllAct" resultType="com.wpca.entity.CoreAct">
+        select * from core_act
+    </select>
+
+    <select id="getActByAct" resultType="com.wpca.entity.CoreAct" parameterType="com.wpca.entity.CoreAct">
+        select * from core_act where
+        <if test=""></if>
+
+    </select>
+
+
+    <select id="getActBySql"  resultType="com.wpca.entity.CoreAct"  parameterType="java.lang.String">
+        select * from core_act where ${sql};
+    </select>
+
+
 </mapper>

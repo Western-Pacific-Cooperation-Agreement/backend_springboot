@@ -63,7 +63,6 @@ public class Const {
     public static final Integer USERACT_NotParticipate = 4;
 
     /****************************-------活动常量--------******************************/
-
     /**
      *活动常量:未审核
      */
@@ -80,7 +79,10 @@ public class Const {
      *用户报名常量:存档
      */
     public static final Integer ACT_Save = 3;
-
+    /**
+     *用户报名常量:存档
+     */
+    public static final Integer ACT_Reviewfailure = 4;
 
 
 }

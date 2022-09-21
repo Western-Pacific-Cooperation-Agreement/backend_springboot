@@ -4,6 +4,7 @@ import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wpca.common.lang.Result;
 import com.wpca.entity.CoreAct;
+import com.wpca.mapper.CoreActMapper;
 import com.wpca.service.CoreActService;
 import com.wpca.service.CoreAssoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,12 @@ public class TestController {
     @Autowired
     CoreActService coreActService;
 
+    @Autowired
+    CoreActMapper coreActMapper;
 
     @GetMapping("/test")
     public Result test(){
-
-        return Result.succ(coreAssoService.list());
+        return Result.succ(coreActMapper.getActBySql("id = 1 or id =2 and act_name like '节' "));
     }
 
     @GetMapping("/test/pass")

@@ -2,9 +2,7 @@ package com.wpca.mapper;
 
 import com.wpca.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 /**

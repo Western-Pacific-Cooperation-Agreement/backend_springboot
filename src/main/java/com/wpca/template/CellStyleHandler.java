@@ -16,7 +16,10 @@ import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.*;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CellStyleHandler implements CellWriteHandler {
     @Override
@@ -52,11 +55,33 @@ public class CellStyleHandler implements CellWriteHandler {
 
         Font font = workbook.createFont();
 
-        font.setFontName("Times New Roman");
+        font.setFontName("宋体");
         font.getCharSet();
         cellStyle.setFont(font);
         cell.setCellStyle(cellStyle);
     }
 
+
+    /**
+     * 对象转化为Map
+     *
+     * @param obj
+     * @return
+     * @throws Exception
+     */
+    public static Map<String, String> objectToMap01(Object obj) throws Exception {
+        if (obj == null) {
+            return null;
+        }
+        Map<String, String> map = new HashMap<String, String>();
+
+        Field[] declaredFields = obj.getClass().getDeclaredFields();
+        for (Field field : declaredFields) {
+            field.setAccessible(true);
+            map.put(field.getName(), (String) field.get(obj));
+        }
+
+        return map;
+    }
 }
 
