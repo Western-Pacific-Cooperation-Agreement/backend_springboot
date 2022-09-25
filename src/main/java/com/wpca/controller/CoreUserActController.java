@@ -47,7 +47,6 @@ public class CoreUserActController extends BaseController {
     @GetMapping("/get/allAct")
     public Result getAllAct(String name){
         System.out.println(name);
-        SysUser user = sysUserService.getByUsername(getUsername());
         Page maps = coreActService.page(getPage(), new QueryWrapper<CoreAct>()
                 .like(StrUtil.isNotBlank(name),"act_name",name)
         );
