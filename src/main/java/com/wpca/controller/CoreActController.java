@@ -395,7 +395,7 @@ public class CoreActController extends BaseController{
         act.setActApplyDate(LocalDateTime.now());
              //更新后需要重新审核
         act.setActReviewerId(null);
-        act.setActReply("重新审核中，请等待。");
+       act.setActReply("重新审核中，请等待。");
         act.setActReviewerStaus(Const.ACT_NotReview);
 
         coreActService.updateById(act);
@@ -448,7 +448,7 @@ public class CoreActController extends BaseController{
         act.setActReviewerDate(LocalDateTime.now());
         act.setActReviewerId(sysUserService.getByUsername(getUsername()).getId());
         //更新后需要重新审核
-        act.setActReply("重新审核中，请等待。");
+//        act.setActReply("重新审核中，请等待。");
 
         coreActService.updateById(act);
 
