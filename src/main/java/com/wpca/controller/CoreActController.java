@@ -318,7 +318,6 @@ public class CoreActController extends BaseController{
         }
 
 
-
         List<CoreAct> list = coreActService.list(
 
                 new QueryWrapper<CoreAct>()
@@ -332,7 +331,6 @@ public class CoreActController extends BaseController{
                         .eq(StrUtil.isNotEmpty(number),"act_number",numberInt)
                         .eq(StrUtil.isNotEmpty(asso),"asso_id",assoInt)
                         .eq(StrUtil.isNotEmpty(nature),"act_nature_id",natureInt)
-
 
         );
         return Result.succ(list);
