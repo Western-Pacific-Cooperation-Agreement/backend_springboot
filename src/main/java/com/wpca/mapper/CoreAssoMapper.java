@@ -1,7 +1,11 @@
 package com.wpca.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.wpca.entity.CoreAsso;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,7 +15,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author WPCA
  * @since 2022-09-04
  */
+@Mapper
 public interface CoreAssoMapper extends BaseMapper<CoreAsso> {
-    //通过协会名称查找数据
-    public CoreAsso findDataByAssoName(String name);
+    public List<CoreAsso> findAll(CoreAsso coreAsso);
+
+    public void delById(Integer  id);
+
+    void addCoreAsso(String assoName, Long assotypeId, Integer assoNumber);
+
+    List<CoreAsso> search(String assoName);
 }

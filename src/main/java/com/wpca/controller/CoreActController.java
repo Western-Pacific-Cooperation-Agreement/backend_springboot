@@ -19,10 +19,13 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -196,7 +199,6 @@ public class CoreActController extends BaseController{
     @GetMapping("/get/userInfo")
     public Result getUserInfo(){
 
-
         String username = getUsername();
         SysUser user = sysUserService.getByUsername(username);
         List<SysRole> roles = sysRoleService.listRolesByUserId(user.getId());
@@ -355,9 +357,103 @@ public class CoreActController extends BaseController{
     }
 
 
+    /**
+     *
+     * @methodName info
+     * @description 通过id填充表格
+     * @param id
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 17:17 2022/9/23
+     * @UpdateTime 17:17 2022/9/23
+     */
+
+    @GetMapping("/get/info/{id}")
+    public Result info(@PathVariable("id") Long id) {
+
+        CoreAct act = coreActService.getById(id);
+
+        return Result.succ(act);
+    }
+
+
 
     /********************************-----------POST-----------*****************************/
 
+
+    @PostMapping("/post/saveApply")
+    public Result saveApply(@Validated @RequestBody CoreAct act) {
+
+        act.setActApplyDate(LocalDateTime.now());
+        act.setUserId(sysUserService.getByUsername(getUsername()).getId());
+        coreActService.save(act);
+        return Result.succ(act);
+    }
+
+    @PostMapping("/post/updateApply")
+    public Result update(@Validated @RequestBody CoreAct act) {
+
+        act.setActApplyDate(LocalDateTime.now());
+             //更新后需要重新审核
+        act.setActReviewerId(null);
+        act.setActReply("重新审核中，请等待。");
+        act.setActReviewerStaus(Const.ACT_NotReview);
+
+        coreActService.updateById(act);
+
+        return Result.succ(act);
+    }
+
+    @PostMapping("/post/deleteApply")
+    @Transactional
+    public Result info(@RequestBody Long[] ids) {
+
+        coreActService.removeByIds(Arrays.asList(ids));
+
+
+        return Result.succ("删除成功");
+    }
+    /**
+     *
+     * @methodName endAct
+     * @description 结束活动
+     * @param id
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 11:30 2022/9/25
+     * @UpdateTime 11:30 2022/9/25
+     */
+    @PostMapping("/post/endAct")
+    @Transactional
+    public Result endAct(@RequestBody Long id) {
+
+        CoreAct act = coreActService.getOne(new QueryWrapper<CoreAct>().eq("id", id));
+
+        act.setActReviewerStaus(Const.ACT_Save);
+
+        return Result.succ("结束活动");
+    }
+
+    /**
+     *
+     * @methodName updateReviewApply
+     * @description
+     * @param act
+     * @return com.wpca.common.lang.Result
+     * @CreateTime 12:55 2022/9/25
+     * @UpdateTime 12:55 2022/9/25
+     */
+
+    @PostMapping("/post/updateReviewApply")
+    public Result updateReviewApply(@Validated @RequestBody CoreAct act) {
+
+        act.setActReviewerDate(LocalDateTime.now());
+        act.setActReviewerId(sysUserService.getByUsername(getUsername()).getId());
+        //更新后需要重新审核
+        act.setActReply("重新审核中，请等待。");
+
+        coreActService.updateById(act);
+
+        return Result.succ(act);
+    }
     /**
      *
      * @methodName addSignUpAct

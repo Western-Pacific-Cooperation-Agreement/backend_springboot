@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wpca.mapper.CoreActGradeMapper">
+    <insert id="saveActType">
+        insert into core_act_grade (act_grade_name, act_grade_remark) VALUES (#{actGradeName},#{actGradeRemark})
+    </insert>
+    <update id="updateActType">
+        update core_act_grade set act_grade_name = #{actGradeName},act_grade_remark=#{actGradeRemark} where id=#{id}
+    </update>
+    <delete id="delById">
+        delete from core_act_grade where id=#{id}
+    </delete>
 
+    <select id="findAll" resultType="com.wpca.entity.CoreActGrade">
+        select * from core_act_grade;
+    </select>
+    <select id="getActTypeByName" resultType="com.wpca.entity.CoreActGrade">
+        select * from core_act_grade where act_grade_name like CONCAT('%',#{actGradeName},'%')
+    </select>
 </mapper>

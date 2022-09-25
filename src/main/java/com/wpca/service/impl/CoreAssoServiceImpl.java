@@ -19,15 +19,26 @@ import java.util.List;
  */
 @Service
 public class CoreAssoServiceImpl extends ServiceImpl<CoreAssoMapper, CoreAsso> implements CoreAssoService {
-
+    @Autowired
+    CoreAssoMapper coreAssoMapper;
 
     @Override
     public List<CoreAsso> findAll(CoreAsso coreAsso) {
-        return null;
+        return coreAssoMapper.findAll(coreAsso);
     }
 
     @Override
-    public void delById(Long id) {
+    public void delById(Integer id) {
+        coreAssoMapper.deleteById(id);
+    }
 
+    @Override
+    public void addCoreAsso(String assoName, Long assotypeId, Integer assoNumber) {
+        coreAssoMapper.addCoreAsso(assoName,assotypeId,assoNumber);
+    }
+
+    @Override
+    public List<CoreAsso> search(String assoName) {
+        return coreAssoMapper.search(assoName);
     }
 }

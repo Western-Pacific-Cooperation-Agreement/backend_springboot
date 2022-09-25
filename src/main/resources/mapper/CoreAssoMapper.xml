@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wpca.mapper.CoreAssoMapper">
+    <insert id="addCoreAsso">
+        insert into core_asso (asso_name, assotype_id, asso_number)values (#{assoName},#{assotypeId},#{assoNumber});
+    </insert>
 
+    <delete id="delById">
+        delete from core_asso where id=#{id};
+    </delete>
+
+    <select id="findAll" resultType="com.wpca.entity.CoreAsso">
+        #         select asso_name,asso_type_name,asso_number
+            #         from core_asso,core_asso_type
+            #         where assotype_id =
+    </select>
+
+    <select id="search" resultType="com.wpca.entity.CoreAsso">
+        select * from core_asso where asso_name like CONCAT('%',#{assoName},'%');
+    </select>
 </mapper>

@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * @author XieQijiang
@@ -148,15 +150,17 @@ public class PersonController extends BaseController{
      * @CreateTime 21:37 2022/9/11
      * @UpdateTime 21:37 2022/9/11
      */
+    @GetMapping("/get/myApplyAct")
+    public Result getMyApplyAct(String name){
+        System.out.println(name);
+        SysUser user = sysUserService.getByUsername(getUsername());
+        Page maps = coreActService.page(getPage(), new QueryWrapper<CoreAct>()
+                .eq("user_id", user.getId())
+                .like(StrUtil.isNotBlank(name),"act_name",name)
+        );
+        return Result.succ(maps);
+    }
 
-//    @GetMapping("/get/myApplyAct")
-//    public Result getMyApplyAct(){
-//        SysUser user = sysUserService.getByUsername(getUsername());
-//        List<CoreAct> maps = coreActService.list(new QueryWrapper<CoreAct>()
-//                .eq("user_id", user.getId())
-//        );
-//        return Result.succ(maps);
-//    }
 
     /**
      * @methodName getMyCollectAct
@@ -183,7 +187,6 @@ public class PersonController extends BaseController{
                             .eq("id", map.getActId())
                             .ge(StrUtil.isNotEmpty(start),"act_start_date",start)
                             .le(StrUtil.isNotEmpty(end),"act_start_date",end)
-
                     );
             if(coreAct ==null){
                 continue;
