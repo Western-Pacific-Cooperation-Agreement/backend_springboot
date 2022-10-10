@@ -23,7 +23,7 @@ public class Test {
     @org.junit.Test
     public void simpleFill() {
         // 加载模板
-        String name = "excel.xls";
+        String name = "历史活动.xls";
         String reportDate = DateUtil.date().toString("yyyy年MM月dd日");
         // 模板文件
         String templateFile = System.getProperty("user.dir") + "/downloadPdfPath/"+name;

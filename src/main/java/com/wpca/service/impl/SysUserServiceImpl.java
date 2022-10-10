@@ -44,8 +44,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser getByUsername(String username) {
-        log.info("检验markhub:"+getOne(new QueryWrapper<SysUser>().eq("username","admin")));
-        log.info("查表用户名："+username);
         return getOne(new QueryWrapper<SysUser>().eq("username",username));
     }
 

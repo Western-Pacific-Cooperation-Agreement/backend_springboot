@@ -1,7 +1,10 @@
 package com.wpca.controller;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -18,18 +21,22 @@ import io.jsonwebtoken.Claims;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONUtil;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -353,8 +360,99 @@ public class CoreActController extends BaseController{
 
         return Result.succ(actBySql);
     }
+    @SneakyThrows
+    @PostMapping("/get/SearchListBySimpleSQL")
+    public Result getSearchListBySimpleSQL(@RequestBody String json){
 
+        JSONObject JSON = new JSONObject(json);
+        String sql = JSON.getString("ssql");
+        System.out.println(sql);
+        sql=simpleSqlToSql(sql);
+        List<CoreAct> actBySql;
+        try {
+            actBySql = coreActMapper.getActBySql(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail("检索表达式错误");
+        }
 
+        return Result.succ(actBySql);
+    }
+
+    /**
+     *
+     * @methodName simpleSqlToSql
+     * @description 转换检索表达式（类检索表达式）到SQL表达式
+     * @param ssql
+     * @return java.lang.String
+     * @CreateTime 8:25 2022/10/8
+     * @UpdateTime 8:25 2022/10/8
+     */
+
+    public String simpleSqlToSql( String ssql) {
+        System.out.println("*********************** => 查询算法 <=   **********************");
+        ssql=chage(ssql);
+        ssql=ssql.replaceAll("%"," like ");
+        System.out.println("进行模糊查询算法");
+        StringBuffer sql= new StringBuffer(ssql);
+        int ptr=0;//完成的下标
+        int idx;
+        while((idx=sql.indexOf("like",ptr))!=-1){
+            int first=sql.indexOf("\'",idx);
+            sql.insert(first+1,'%');
+            ptr=first+1;
+            for(int i=ptr+1;i<sql.length();i++){
+                char[] tmp=new char[2];
+                sql.getChars(i,i+1,tmp,0);
+                if(tmp[0]=='\''){
+                        System.out.println(i+" :  "+sql.toString());
+                        sql.insert(i,'%');
+                        i++;
+                        ptr=i+1;
+                        break;
+                }
+//                sql.insert(i,'%');
+//                i++;
+            }
+        }
+        String result= new String(sql);
+        result=result.replaceAll("#","%");
+        System.out.println("算法替代结果："+result);
+        result=result.replaceAll("%%","%");
+        System.out.println("算法优化结果："+result);
+        System.out.println("*********************** => 查询算法END <=   **********************");
+
+        return result;
+    }
+    public String chage( String ssql) {
+        System.out.println("进行模糊匹配算法");
+        ssql=ssql.replaceAll("#"," like ");
+        StringBuffer sql= new StringBuffer(ssql);
+        int ptr=0;//完成的下标
+        int idx;
+        while((idx=sql.indexOf("like",ptr))!=-1){
+            int first=sql.indexOf("\'",idx);
+            sql.insert(first+1,'#');
+            ptr=first+1;
+            for(int i=ptr+2;i<sql.length();i++){
+                char[] tmp=new char[2];
+                sql.getChars(i,i+1,tmp,0);
+                if(tmp[0]=='\''){
+                    System.out.println(i+" :  "+sql.toString());
+                    sql.insert(i,'#');
+                    i++;
+                    ptr=i+1;
+                    break;
+                }
+                sql.insert(i,'#');
+                i++;
+                ptr++;
+            }
+        }
+
+        System.out.println(new String(sql));
+        return new String(sql);
+    }
     /**
      *
      * @methodName info
@@ -374,12 +472,48 @@ public class CoreActController extends BaseController{
     }
 
 
+    private String fileUploadPath=System.getProperty("user.dir") + "/downloadPdfPath/act/";
 
     /********************************-----------POST-----------*****************************/
 
 
+    @SneakyThrows
+    @PostMapping("/upload")
+    public Result upload(@RequestParam MultipartFile file){
+        String originalFilename = file.getOriginalFilename();
+        String type = FileUtil.extName(originalFilename);
+        long size = file.getSize();
+
+        // 定义一个文件唯一的标识码
+       String uuid = IdUtil.fastSimpleUUID();
+       String fileUUID=uuid+StrUtil.DOT+type;
+
+        //存储到磁盘
+        File uploadParentFile = new File(fileUploadPath);
+
+        //判断文件目录是否存在 不存在则创建目录
+        if(!uploadParentFile.exists()){
+            uploadParentFile.mkdirs();
+        }
+
+        // 定义一个文件唯一的标识码
+        //标识码
+        File uploadFile = new File(fileUploadPath+fileUUID);
+
+        String url;
+        String md5 = SecureUtil.md5(file.getInputStream());
+        // 从数据库查询是否存在相同的记录
+
+            // 上传文件到磁盘
+            file.transferTo(uploadFile);
+            // 数据库若不存在重复文件，则不删除刚才上传的文件
+            url= "http://localhost:18888/product/act/"+fileUUID;
+
+        return Result.succ(url);
+    }
+
     @PostMapping("/post/saveApply")
-    public Result saveApply(@Validated @RequestBody CoreAct act) {
+    public Result saveApply(@Validated @RequestBody CoreAct act)  {
 
         act.setActApplyDate(LocalDateTime.now());
         act.setUserId(sysUserService.getByUsername(getUsername()).getId());
@@ -388,7 +522,8 @@ public class CoreActController extends BaseController{
     }
 
     @PostMapping("/post/updateApply")
-    public Result update(@Validated @RequestBody CoreAct act) {
+    public Result update(@Validated @RequestBody CoreAct act) throws IOException {
+
 
         act.setActApplyDate(LocalDateTime.now());
              //更新后需要重新审核

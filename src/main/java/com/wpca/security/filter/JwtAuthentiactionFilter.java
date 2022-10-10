@@ -70,6 +70,7 @@ public class JwtAuthentiactionFilter extends BasicAuthenticationFilter {
 
         Claims claim = jwtUtils.getClaimByToken(jwt);
         if (claim == null) {
+            response.setHeader(jwtUtils.getHeader(),"");//清空token
             throw new JwtException("token 异常");
         }
         if (jwtUtils.isTokenExpired(claim)) {

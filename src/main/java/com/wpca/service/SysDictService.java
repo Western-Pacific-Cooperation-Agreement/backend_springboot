@@ -1,6 +1,6 @@
 package com.wpca.service;
 
-import com.wpca.entity.ExpansionNotice;
+import com.wpca.entity.SysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author WPCA
- * @since 2022-09-09
+ * @since 2022-10-04
  */
-public interface ExpansionNoticeService extends IService<ExpansionNotice> {
+public interface SysDictService extends IService<SysDict> {
 
 }

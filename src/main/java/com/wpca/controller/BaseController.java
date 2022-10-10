@@ -63,7 +63,6 @@ public class BaseController {
 
 
     public Page getPage(int current,int size){
-
         return  new Page(current,size);
     }
 }

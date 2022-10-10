@@ -13,6 +13,8 @@ import com.alibaba.excel.write.handler.CellWriteHandler;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 import com.alibaba.excel.write.metadata.holder.WriteTableHolder;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.*;
 
@@ -21,7 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class CellStyleHandler implements CellWriteHandler {
+    String fontName="宋体";
+    int fontSize=11,fontColor=0;
+    Boolean IsBold=Boolean.FALSE,IsItalic=Boolean.FALSE;
+
     @Override
     public void beforeCellCreate(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, Row row, Head head, Integer integer, Integer integer1, Boolean aBoolean) {
 
@@ -55,7 +63,12 @@ public class CellStyleHandler implements CellWriteHandler {
 
         Font font = workbook.createFont();
 
-        font.setFontName("宋体");
+        font.setFontName(fontName);
+        font.setFontHeightInPoints((short)fontSize);
+        font.setColor((short) fontColor);
+        font.setBold(IsBold);
+        font.setItalic(IsItalic);
+
         font.getCharSet();
         cellStyle.setFont(font);
         cell.setCellStyle(cellStyle);
@@ -84,4 +97,3 @@ public class CellStyleHandler implements CellWriteHandler {
         return map;
     }
 }
-

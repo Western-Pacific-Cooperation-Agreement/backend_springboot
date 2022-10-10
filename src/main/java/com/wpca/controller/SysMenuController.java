@@ -74,7 +74,7 @@ public class SysMenuController extends BaseController {
     }
 
     @GetMapping("/info/{id}")
-    //@PreAuthorize("hasAuthority('sys:menu:list')")
+//    @PreAuthorize("hasAuthority('sys:menu:list')")
     public Result info(@PathVariable("id") Long id) {
         return Result.succ(sysMenuService.getById(id));
     }

@@ -9,28 +9,33 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author WPCA
- * @since 2022-09-04
+ * @since 2022-10-04
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CoreAsso extends BaseEntity {
+public class SysDict extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 协会名称
+     * 名称
      */
-    private String assoName;
+    private String name;
 
     /**
-     * 协会类型
+     * 系统编码
      */
-    private Long assotypeId;
+    private String syscode;
 
     /**
-     * 备注
+     * 描述
      */
     private String remark;
+
+    /**
+     * 用户编码
+     */
+    private String usercode;
 
 
 }

@@ -66,10 +66,19 @@ public class CoreUserActController extends BaseController {
 
         //获得所有的参与者记录
         List<CoreUserAct> users = coreUserActService.list(new QueryWrapper<CoreUserAct>().eq("act_id", id));
+        if(users.size()==0){
+            Page page =getPage();
 
+            return Result.succ(page);
+        }
         List ids=new ArrayList<Long>();
 
-        users.forEach(user->ids.add(user.getUserId()));
+
+        users.forEach(user->{
+                    ids.add(user.getUserId());
+
+                }
+                );
 
         //活动报名者个人信息
         List<SysUser> userInfo = sysUserService.listByIds(ids);

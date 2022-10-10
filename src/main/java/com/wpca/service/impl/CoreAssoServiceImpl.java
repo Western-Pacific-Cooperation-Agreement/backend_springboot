@@ -33,8 +33,8 @@ public class CoreAssoServiceImpl extends ServiceImpl<CoreAssoMapper, CoreAsso> i
     }
 
     @Override
-    public void addCoreAsso(String assoName, Long assotypeId, Integer assoNumber) {
-        coreAssoMapper.addCoreAsso(assoName,assotypeId,assoNumber);
+    public void addCoreAsso(String assoName, Long assotypeId,String  remark) {
+        coreAssoMapper.addCoreAsso(assoName,assotypeId,remark);
     }
 
     @Override

@@ -29,7 +29,7 @@ public interface CoreAssoService extends IService<CoreAsso> {
 
     void delById(Integer id);
 
-    void addCoreAsso(String assoName, Long assotypeId, Integer assoNumber);
+    void addCoreAsso(String assoName, Long assotypeId, String remark);
 
     List<CoreAsso> search(String assoName);
 

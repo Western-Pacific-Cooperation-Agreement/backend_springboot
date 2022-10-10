@@ -59,7 +59,7 @@ public class CoreAssoController extends BaseController {
 
     @PostMapping("/addCoreAsso")
     public Result addCoreAsso(@RequestBody CoreAsso coreAsso){
-        coreAssoService.addCoreAsso(coreAsso.getAssoName(),coreAsso.getAssotypeId(),coreAsso.getAssoNumber());
+        coreAssoService.addCoreAsso(coreAsso.getAssoName(),coreAsso.getAssotypeId(),coreAsso.getRemark());
         return Result.succ("增加部门成功");
     }
 
