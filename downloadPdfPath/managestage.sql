@@ -11,7 +11,7 @@
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 02/10/2022 07:38:56
+ Date: 09/10/2022 07:22:46
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `core_act`  (
   `act_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '活动名称',
   `asso_id` bigint NULL DEFAULT NULL COMMENT '社团id',
   `user_id` bigint NULL DEFAULT NULL COMMENT '申请负责人用户id',
-  `act_place` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '活动地点',
+  `act_place` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '活动地点',
   `act_nature_id` bigint NULL DEFAULT NULL COMMENT '活动性质编码',
   `act_number` int NULL DEFAULT NULL COMMENT '活动人数',
   `act_object_id` bigint NULL DEFAULT NULL COMMENT '活动对象id',
@@ -48,14 +48,17 @@ CREATE TABLE `core_act`  (
   `act_integral` bigint NULL DEFAULT NULL COMMENT '活动积分',
   `act_start_date` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of core_act
 -- ----------------------------
 INSERT INTO `core_act` VALUES (1, '周末文化集市', 1, 1, '艺术礼堂前', 2, 2, 0, 2000, '2022-09-06 22:44:33', 1, '2022-09-06 22:44:38', 3, 1, 1, 'https://imgsa.baidu.com/forum/w%3D580/sign=554a3a167b8b4710ce2ffdc4f3cfc3b2/5f955566d016092444f3602cdd0735fae7cd3498.jpg', 1, '5小时', '宣传校园文化', '进入摊位参与活动进入摊位参与活动进入摊位参与活动进入摊位参与活动进入摊位参与活动进入摊位参与活动进入摊位参与活动进入摊位参与活动', '1，进入摊位参与活动', '注意安全', '同意', 10, '2022-09-01 11:15:35');
-INSERT INTO `core_act` VALUES (2, '草地音乐节', 1, 4, '新操场', 2, 2, 2, 2000, '2022-09-25 14:55:39', 4, '2022-09-25 16:13:31', 1, 1, 1, 'https://img0.baidu.com/it/u=1405467168,4161234044&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=313', 1, '4小时', '激发学生的参与热情，有利于校园文化“百花齐放”氛围格局的形成，同时还有效促进学生综合素质的养成，让更多的学生从活动中受益.', '“周末文化集市”的前身是“周末文化大舞台”。“不论才艺是否出众，只要有热情，只要有意愿，就可以登台展风采”——这是“周末文化大舞台”打出的旗号；让更多普通同学有机会表现和锻炼自己，成为校园文化活动的“主角”，是“周末文化大舞台”的初衷。“周末文化大舞台”主动降低舞台高度，淡化演员与观众的界限，提倡“全民参与”的活动形式，激发了广大同学的参与热情，自2008年开办以来，已先后举办了近80场文艺专场活动，内容涵盖了歌唱、舞蹈、话剧、朗诵、器乐、礼仪表演等一系列内容丰富多彩的活动。“周末文化大舞台”别具一格的活动形式为广大同学提供了一个展示与锻炼自我的广阔空间、一个可以尽情挥洒青春风采的“亲民舞台”，它以其独特的魅力得到广大学生的喜爱和好评，成为厦门理工学院校园文化活动的一道动人风景线。', '第一，形式更灵活，不再设置“舞台”，取而代之的是以不同文化元素为表现主题的多个摊位组成，不再设置舞台。第二，内容更丰富，有手工制作展示、文化民俗体验、能力与极限挑战、美食风情荟萃等多种类型的摊位与展区，不再局限于歌舞乐器。第三，集市的参与面更广泛，所有摊位都面向全校学生招标，因此每个学生都有机会参与到其中，今天你是逛集市的“游客”，明天你可能就是摊位的“主人”。第四，创意更足，所有的摊位都由学生自己装饰、布置，由学生自己确定展示内容和展示方式，学生的创意得到极大的释放和激发。', '新的学期已经开始，希望有更多的同学能参与到集市进来，让“阳光雨露计划”真正惠及每一位学生。', '同意举办', 100, '2023-11-01 21:15:39');
+INSERT INTO `core_act` VALUES (2, '草地音乐节', 1, 4, '新操场', 2, 1, 2, 2000, '2022-10-05 15:24:53', 4, '2022-10-05 15:25:52', 3, 1, 1, 'https://img0.baidu.com/it/u=1405467168,4161234044&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=313', 1, '4小时', '激发学生的参与热情，有利于校园文化“百花齐放”氛围格局的形成，同时还有效促进学生综合素质的养成，让更多的学生从活动中受益.', '“周末文化集市”的前身是“周末文化大舞台”。“不论才艺是否出众，只要有热情，只要有意愿，就可以登台展风采”——这是“周末文化大舞台”打出的旗号；让更多普通同学有机会表现和锻炼自己，成为校园文化活动的“主角”，是“周末文化大舞台”的初衷。“周末文化大舞台”主动降低舞台高度，淡化演员与观众的界限，提倡“全民参与”的活动形式，激发了广大同学的参与热情，自2008年开办以来，已先后举办了近80场文艺专场活动，内容涵盖了歌唱、舞蹈、话剧、朗诵、器乐、礼仪表演等一系列内容丰富多彩的活动。“周末文化大舞台”别具一格的活动形式为广大同学提供了一个展示与锻炼自我的广阔空间、一个可以尽情挥洒青春风采的“亲民舞台”，它以其独特的魅力得到广大学生的喜爱和好评，成为厦门理工学院校园文化活动的一道动人风景线。', '第一，形式更灵活，不再设置“舞台”，取而代之的是以不同文化元素为表现主题的多个摊位组成，不再设置舞台。第二，内容更丰富，有手工制作展示、文化民俗体验、能力与极限挑战、美食风情荟萃等多种类型的摊位与展区，不再局限于歌舞乐器。第三，集市的参与面更广泛，所有摊位都面向全校学生招标，因此每个学生都有机会参与到其中，今天你是逛集市的“游客”，明天你可能就是摊位的“主人”。第四，创意更足，所有的摊位都由学生自己装饰、布置，由学生自己确定展示内容和展示方式，学生的创意得到极大的释放和激发。', '新的学期已经开始，希望有更多的同学能参与到集市进来，让“阳光雨露计划”真正惠及每一位学生。', '重新审核中，请等待。', 100, '2023-11-01 21:15:39');
 INSERT INTO `core_act` VALUES (3, '蓝桥杯', 1, 1, '精工1', 1, 1, 0, 2000, '2022-09-10 11:05:23', 4, '2022-09-25 16:13:36', 1, 1, 1, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fxxgk.shnu.edu.cn%2F_upload%2Farticle%2Fimages%2Fb9%2Fbd%2F274a0bac4b2b908ddd8b798ad541%2Ff104d142-3e59-423e-b942-09205d47ba62.jpg&refer=http%3A%2F%2Fxxgk.shnu.edu.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1665666412&t=0b808e9b5d20432fbb72e8ff1b26ff14', 1, '5小时', '编程', '1', '1', '1', '重新审核中，请等待。', 20, '2022-10-29 11:15:40');
+INSERT INTO `core_act` VALUES (12, '摄影大赛', 3, 4, '无限制', 6, 2, 0, NULL, '2022-10-04 14:51:04', NULL, NULL, 0, NULL, NULL, 'https://img2.baidu.com/it/u=443077659,3222854101&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500', NULL, '9个月', '为了丰富大学生的校园生活，展示假期多姿多彩的生活，增强大学生艺术与审美的交流，也为诸多摄影爱好者提供一个展示自我的平台，以此激发大学生对摄影的兴趣和爱好，更加关心、了解校园生活体验校园文化，记载激动人心，感人至深的瞬间、留住温馨的欢笑回忆，分享快乐美好大学生活，同时为扩大我社的影响力与活力，以此体现协和的活力，展现协和的辉煌!', '十、比赛规定:\n1.)作品为投稿人原创,由单反相机印放的黑白，彩色作品均可\n2.)作品形式风格不限，不得添加边框、签名、水纹等修饰，否则视为弃权\n3.)所有参赛作品不能改变原始影像仅可做色彩、色调、亮度适当调整，不收创意电脑合成照片4.）投稿作品要注明作品的标题，拍摄时间，拍摄的地点，真实姓名，联系方式，文字叙述分别写在纸上不得写在照片的背面\n5.)不得剽窃、借助他人作品，冒名顶替', '1、撰写申请书、策划书\n2、组织活动，做好社内工作，进行广播宣传，张贴海报等宣传工作3、工作人员分配及任务:\n1.)编辑组:负责人:负责撰写活动后的总结2.)宣传组:负责人:\n负责活动的展板设计、海报等设计工作3.)机动组:负责人:负责活动现场纪律的维持、会场的划分、后勤保障，对本次活动参赛者解析说明以及处理应急事件\n4.)摄影组:负责人:\n负责本次活动作品的筛选,现场的摄影以及后期影像资料的保存', '无', '重新审核中，请等待。', 10, '2022-12-01 16:00:00');
+INSERT INTO `core_act` VALUES (13, '辩论赛', 12, 4, '预赛:205教室15日上午8：00开始（15日六场，16日一场）\n\n11月15日早上 A组B组（8：20—9：20）\n\n11月15日早上 C组D组（9：40—10：40）\n\n11月15日下午 E组F组（14：00—15：00）\n\n11月15日下午 G组H组（15：20—16：20）\n\n11月15日晚上 I组J组（18: 20—19: 20）\n\n11月15日晚上 K组L组（19：40—20：40）\n\n11月16日晚上 M组N组（18：20—19：20）\n\n晋级赛：205教室18日晚上开始\n\n11月18日晚上（18: 20—19: 20）\n\n11月18日晚上（19：40—20：40）\n\n11月19日晚上（18：20—19：20）', 1, 0, 2, NULL, '2022-10-04 15:13:19', NULL, NULL, 0, NULL, NULL, 'https://img0.baidu.com/it/u=2559875851,2401474173&fm=253&fmt=auto&app=138&f=JPEG?w=700&h=394', NULL, '2天', '举办辩论赛是为了发扬艺术与旅游学院的浓厚艺术气息，加强校园文化建设。提高学生的应变能力和表达能力，以及综合文化素质。培养学生的创新能力和逻辑思维能力。全面展示我们的素质教育成人。', '辩论赛是我们XXX学院每年针对大一新生展开的一项比赛，此次比赛为我系学生提供了一个充分展示个人能力，提高口才表达能力和交际水平的平台。我们希望通过此次辩论赛可以提高学生的自我应变能力以及辩论水平。', '活动流程:(具体事项如有改动将另行通知)\n\n(一)辩论资格赛：\n\n在资格赛中获胜的辩论队于隔天抽取复赛辩题\n\n(二)复赛:\n\n在复赛中获胜的辩论队于隔天抽取半决赛赛辩题\n\n(三)半决赛：\n\n在半决赛中获胜的辩论队于隔天抽取决赛辩题\n\n(四)决赛:\n\n注：每场比赛有一位点评嘉宾作现场点评，点评嘉宾由评委中产生。', '参赛队伍：XXX学院大一新生\n\n辩手要求：每支队伍由7人组成（1名的责任人，4名辩手，2名替补）。要求辩手口齿清晰，思维敏捷，赛前做好充分准备\n\n主持人要求：外型仪表端正，口齿清晰，开朗大方', '重新审核中，请等待。', 10, '2022-12-01 16:02:00');
+INSERT INTO `core_act` VALUES (14, '123', 1, 4, '123', 0, 1, 1, NULL, '2022-10-05 16:16:16', 4, '2022-10-05 16:16:48', 1, NULL, NULL, 'http://localhost:18888/product/act/493b60b0325c49b78f7e4d0b8dbdc225.png', NULL, '123', '123123', '123123', '123123123', '123123', '同意举办', 123123, '2027-08-13 16:00:00');
 
 -- ----------------------------
 -- Table structure for core_act_grade
@@ -109,19 +112,26 @@ CREATE TABLE `core_asso`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `asso_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '协会名称',
   `assotype_id` bigint NOT NULL COMMENT '协会类型',
-  `asso_number` int NULL DEFAULT NULL COMMENT '协会人数',
+  `remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '协会人数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of core_asso
 -- ----------------------------
-INSERT INTO `core_asso` VALUES (0, '无', 0, 1892);
-INSERT INTO `core_asso` VALUES (1, '周末文化集市运营部', 2, 100);
-INSERT INTO `core_asso` VALUES (2, '学习部', 1, 132);
-INSERT INTO `core_asso` VALUES (3, '宣传部', 1, 232);
-INSERT INTO `core_asso` VALUES (4, '文体部', 1, 98);
-INSERT INTO `core_asso` VALUES (5, '无', 0, 1892);
+INSERT INTO `core_asso` VALUES (0, '无', 0, '1892');
+INSERT INTO `core_asso` VALUES (1, '周末文化集市运营部', 2, '100');
+INSERT INTO `core_asso` VALUES (2, '学习部', 1, '132');
+INSERT INTO `core_asso` VALUES (3, '宣传部', 1, '232');
+INSERT INTO `core_asso` VALUES (4, '文体部', 1, '98');
+INSERT INTO `core_asso` VALUES (6, '主席团', 9, '13');
+INSERT INTO `core_asso` VALUES (7, '组织部', 9, '134');
+INSERT INTO `core_asso` VALUES (8, '办公室', 9, '21');
+INSERT INTO `core_asso` VALUES (9, '财务部', 9, NULL);
+INSERT INTO `core_asso` VALUES (10, '生活部', 0, NULL);
+INSERT INTO `core_asso` VALUES (11, '网络信息部', 9, NULL);
+INSERT INTO `core_asso` VALUES (12, '策划部', 9, NULL);
+INSERT INTO `core_asso` VALUES (13, '外联部', 0, NULL);
 
 -- ----------------------------
 -- Table structure for core_asso_type
@@ -132,7 +142,7 @@ CREATE TABLE `core_asso_type`  (
   `asso_type_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT ' 社团类型名称',
   `asso_type_remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of core_asso_type
@@ -144,6 +154,10 @@ INSERT INTO `core_asso_type` VALUES (3, '科技类', '科技类');
 INSERT INTO `core_asso_type` VALUES (4, '创新类', '创新类');
 INSERT INTO `core_asso_type` VALUES (5, '志愿类', '志愿类');
 INSERT INTO `core_asso_type` VALUES (6, '体育类', '体育类');
+INSERT INTO `core_asso_type` VALUES (7, '竞赛类', '竞赛类部门');
+INSERT INTO `core_asso_type` VALUES (8, '政治类', '政治类型');
+INSERT INTO `core_asso_type` VALUES (9, '综合类', '综合类型');
+INSERT INTO `core_asso_type` VALUES (11, '其他类', '其他类型、包括无部门123');
 
 -- ----------------------------
 -- Table structure for core_object
@@ -205,7 +219,7 @@ INSERT INTO `core_user_act` VALUES (2, 2, 1, '同意你参加活动', NULL, 0, N
 INSERT INTO `core_user_act` VALUES (3, 3, 1, '同意你参加活动', NULL, 0, NULL);
 INSERT INTO `core_user_act` VALUES (5, 5, 1, '不同意你参加活动', NULL, 2, NULL);
 INSERT INTO `core_user_act` VALUES (42, 4, 1, NULL, NULL, 3, NULL);
-INSERT INTO `core_user_act` VALUES (46, 4, 2, '不通过', '2022-09-25 16:03:13', 2, '2022-09-20 14:43:29');
+INSERT INTO `core_user_act` VALUES (46, 4, 2, '不通过，不同意你参加活动', '2022-10-04 15:14:39', 2, '2022-09-20 14:43:29');
 INSERT INTO `core_user_act` VALUES (47, 1, 3, NULL, NULL, 0, '2022-09-20 19:44:31');
 INSERT INTO `core_user_act` VALUES (48, 4, 3, NULL, NULL, 0, '2022-09-21 14:19:36');
 
@@ -241,7 +255,7 @@ CREATE TABLE `expansion_collection`  (
   `act_id` bigint NOT NULL COMMENT '活动',
   `collection_date` datetime NULL DEFAULT NULL COMMENT '收藏日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of expansion_collection
@@ -250,7 +264,7 @@ INSERT INTO `expansion_collection` VALUES (1, 1, 1, '2022-09-10 21:55:14');
 INSERT INTO `expansion_collection` VALUES (47, 4, 1, '2022-09-20 14:43:14');
 INSERT INTO `expansion_collection` VALUES (48, 4, 2, '2022-09-20 14:43:26');
 INSERT INTO `expansion_collection` VALUES (50, 1, 3, '2022-09-20 19:44:31');
-INSERT INTO `expansion_collection` VALUES (58, 4, 3, '2022-09-25 16:06:21');
+INSERT INTO `expansion_collection` VALUES (61, 4, 3, '2022-10-08 20:41:02');
 
 -- ----------------------------
 -- Table structure for expansion_comment
@@ -328,6 +342,112 @@ INSERT INTO `expansion_system_log` VALUES (1, 1, 1, 1, '2022-09-06 21:18:54');
 INSERT INTO `expansion_system_log` VALUES (2, 2, 1, 2, '2022-09-08 07:27:15');
 
 -- ----------------------------
+-- Table structure for sys_backup
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_backup`;
+CREATE TABLE `sys_backup`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
+  `size` bigint NULL DEFAULT NULL COMMENT '文件大小',
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '下载链接',
+  `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件MD5',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除',
+  `enable` tinyint(1) NULL DEFAULT 1 COMMENT '是否可用',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_backup
+-- ----------------------------
+INSERT INTO `sys_backup` VALUES (10, 'loginBackground.jpg', 'jpg', 16964, 'http://localhost:18888/product/file/66a250127e644879a83444d200c0debf.jpg', 'ae8d3eee8734b54582392b52fcdd6c6f', 0, 1);
+INSERT INTO `sys_backup` VALUES (11, 'xmut4.jpg', 'jpg', 59308, 'http://localhost:18888/product/file/1ca21ead305f403d966bca9fb07a5338.jpg', '8f8c471afbee6c9fe0eb636ec0351d99', 1, 1);
+INSERT INTO `sys_backup` VALUES (12, '活动证明.xlsx', 'xlsx', 9913, 'http://localhost:18888/product/活动证明.xlsx', 'e0aac83b347a58eb38ebabaa7becda84', 0, 1);
+INSERT INTO `sys_backup` VALUES (13, '历史活动.xls', 'xls', 19456, 'http://localhost:18888/product/历史活动.xls', 'bb33ff869f6a13bf918681dee0a63db9', 0, 1);
+INSERT INTO `sys_backup` VALUES (14, '厦门理工学院活动登记卡.xlsx', 'xlsx', 10606, 'http://localhost:18888/product/厦门理工学院活动登记卡.xlsx', '10cb2fd976b05bc1b1908a500fda30c2', 0, 1);
+INSERT INTO `sys_backup` VALUES (15, '软件工程书.xlsx', 'xlsx', 16245, 'http://localhost:18888/product/软件工程书.xlsx', '8768382152bc8d9637aacc1d90ed2dc7', 0, 1);
+INSERT INTO `sys_backup` VALUES (16, '屏幕截图(1).png', 'png', 1041497, 'http://localhost:18888/product/屏幕截图(1).png', '647427e38b7da9e341af48eb94dc856a', 1, 1);
+INSERT INTO `sys_backup` VALUES (17, '屏幕截图(1).png', 'png', 1041497, 'http://localhost:18888/product/屏幕截图(1).png', '647427e38b7da9e341af48eb94dc856a', 0, 1);
+INSERT INTO `sys_backup` VALUES (18, '屏幕截图(1).png', 'png', 1041497, 'http://localhost:18888/product/屏幕截图(1).png', '647427e38b7da9e341af48eb94dc856a', 1, 1);
+INSERT INTO `sys_backup` VALUES (19, 'eclipse.exe', 'exe', 320008, 'http://localhost:18888/product/eclipse.exe', 'd0706146376a20c4fef185ad1c44fb6a', 1, 1);
+INSERT INTO `sys_backup` VALUES (20, 'QQ截图20221007170245.jpg', 'jpg', 87029, 'http://localhost:18888/product/QQ截图20221007170245.jpg', '09539bda9ff0e3ab9382c589271d0d25', 0, 1);
+INSERT INTO `sys_backup` VALUES (21, 'managestage.sql', 'sql', 46948, 'http://localhost:18888/product/managestage.sql', '84c1fe05e708ee917b141e41d8f217bd', 0, 1);
+INSERT INTO `sys_backup` VALUES (22, '20221003项目进度报告.md', 'md', 2965, 'http://localhost:18888/product/backup20221003项目进度报告.md', '62678b25a5f5fd857b05e946d556886c', 1, 1);
+
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '名称',
+  `syscode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '系统编码',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '描述',
+  `usercode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户编码',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_dict
+-- ----------------------------
+INSERT INTO `sys_dict` VALUES (1, '活动表模版名称', '厦门理工学院活动登记卡.xlsx', '打印模版名称', '厦门理工学院活动登记卡.xlsx');
+INSERT INTO `sys_dict` VALUES (2, '活动证明表模版', '活动证明.xlsx', '打印模版名称', '活动证明.xlsx');
+INSERT INTO `sys_dict` VALUES (3, '软件工程书', '软件工程书.xlsx', '打印模版名称', '软件工程书.xlsx');
+INSERT INTO `sys_dict` VALUES (4, '历史活动', '历史活动.xls', '打印模版名称', '历史活动.xls');
+INSERT INTO `sys_dict` VALUES (5, '部门名称', 'assoName', '打印变量', 'assoName');
+INSERT INTO `sys_dict` VALUES (6, '申请人姓名', 'applyUserame', '打印变量', 'applyUserame');
+INSERT INTO `sys_dict` VALUES (7, '申请人电话', 'applyUserPhone', '打印变量', 'applyUserPhone');
+INSERT INTO `sys_dict` VALUES (8, '活动地点', 'place', '打印变量', 'place');
+INSERT INTO `sys_dict` VALUES (9, '审核人、指导人姓名', 'reviewUsername', '打印变量', 'reviewUsername');
+INSERT INTO `sys_dict` VALUES (10, '审核人电话', 'reviewPhone', '打印变量', 'reviewPhone');
+INSERT INTO `sys_dict` VALUES (11, '活动对象', 'actObjectName', '打印变量', 'actObjectName');
+INSERT INTO `sys_dict` VALUES (12, '活动编号', 'actNumberName', '打印变量', 'actNumberName');
+INSERT INTO `sys_dict` VALUES (13, '部门类型', 'assoType', '打印变量', 'assoType');
+INSERT INTO `sys_dict` VALUES (14, '活动开始时间', 'actStartDate', '打印变量', 'actStartDate');
+INSERT INTO `sys_dict` VALUES (15, '活动名称', 'actName', '打印变量', 'actName');
+INSERT INTO `sys_dict` VALUES (16, '活动目的', 'actAim', '打印变量', 'actAim');
+INSERT INTO `sys_dict` VALUES (17, '活动流程', 'actProcess', '打印变量', 'actProcess');
+INSERT INTO `sys_dict` VALUES (18, '活动信息', 'actMessage', '打印变量', 'actMessage');
+INSERT INTO `sys_dict` VALUES (19, '活动注意事项', 'actWarn', '打印变量', 'actWarn');
+INSERT INTO `sys_dict` VALUES (20, '活动经费', 'actFund', '打印变量', 'actFund');
+INSERT INTO `sys_dict` VALUES (21, '活动申请日期', 'actApplyDate', '打印变量', 'actApplyDate');
+INSERT INTO `sys_dict` VALUES (22, '活动审核日期', 'actReviewerDate', '打印变量', 'actReviewerDate');
+INSERT INTO `sys_dict` VALUES (23, '审核回复', 'actReply', '打印变量', 'actReply');
+
+-- ----------------------------
+-- Table structure for sys_file
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file`;
+CREATE TABLE `sys_file`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
+  `size` bigint NULL DEFAULT NULL COMMENT '文件大小',
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '下载链接',
+  `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件MD5',
+  `is_delete` tinyint(1) NULL DEFAULT 0 COMMENT '是否删除',
+  `enable` tinyint(1) NULL DEFAULT 1 COMMENT '是否可用',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_file
+-- ----------------------------
+INSERT INTO `sys_file` VALUES (10, 'loginBackground.jpg', 'jpg', 16964, 'http://localhost:18888/product/file/66a250127e644879a83444d200c0debf.jpg', 'ae8d3eee8734b54582392b52fcdd6c6f', 0, 1);
+INSERT INTO `sys_file` VALUES (11, 'xmut4.jpg', 'jpg', 59308, 'http://localhost:18888/product/file/1ca21ead305f403d966bca9fb07a5338.jpg', '8f8c471afbee6c9fe0eb636ec0351d99', 1, 1);
+INSERT INTO `sys_file` VALUES (12, '活动证明.xlsx', 'xlsx', 9913, 'http://localhost:18888/product/活动证明.xlsx', 'e0aac83b347a58eb38ebabaa7becda84', 0, 1);
+INSERT INTO `sys_file` VALUES (13, '历史活动.xls', 'xls', 19456, 'http://localhost:18888/product/历史活动.xls', 'bb33ff869f6a13bf918681dee0a63db9', 0, 1);
+INSERT INTO `sys_file` VALUES (14, '厦门理工学院活动登记卡.xlsx', 'xlsx', 10606, 'http://localhost:18888/product/厦门理工学院活动登记卡.xlsx', '10cb2fd976b05bc1b1908a500fda30c2', 0, 1);
+INSERT INTO `sys_file` VALUES (15, '软件工程书.xlsx', 'xlsx', 16245, 'http://localhost:18888/product/软件工程书.xlsx', '8768382152bc8d9637aacc1d90ed2dc7', 0, 1);
+INSERT INTO `sys_file` VALUES (16, '屏幕截图(1).png', 'png', 1041497, 'http://localhost:18888/product/屏幕截图(1).png', '647427e38b7da9e341af48eb94dc856a', 1, 1);
+INSERT INTO `sys_file` VALUES (17, '屏幕截图(1).png', 'png', 1041497, 'http://localhost:18888/product/屏幕截图(1).png', '647427e38b7da9e341af48eb94dc856a', 0, 1);
+INSERT INTO `sys_file` VALUES (18, '屏幕截图(1).png', 'png', 1041497, 'http://localhost:18888/product/屏幕截图(1).png', '647427e38b7da9e341af48eb94dc856a', 1, 1);
+INSERT INTO `sys_file` VALUES (19, 'eclipse.exe', 'exe', 320008, 'http://localhost:18888/product/eclipse.exe', 'd0706146376a20c4fef185ad1c44fb6a', 1, 1);
+INSERT INTO `sys_file` VALUES (20, 'QQ截图20221007170245.jpg', 'jpg', 87029, 'http://localhost:18888/product/QQ截图20221007170245.jpg', '09539bda9ff0e3ab9382c589271d0d25', 0, 1);
+INSERT INTO `sys_file` VALUES (21, 'managestage.sql', 'sql', 46948, 'http://localhost:18888/product/managestage.sql', '84c1fe05e708ee917b141e41d8f217bd', 0, 1);
+INSERT INTO `sys_file` VALUES (22, '新建文本文档.txt', 'txt', 130, 'http://localhost:18888/product/新建文本文档.txt', '00ccf44eec2759c75a61fccb43f7d8ee', 0, 1);
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -346,28 +466,40 @@ CREATE TABLE `sys_menu`  (
   `menu_statu` int NOT NULL COMMENT '菜单状态（0启用，1禁用）',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `menu_name`(`menu_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (2, 0, '用户管理', '/sys/users', 'sys:manage', 'sys/User', 0, 'avatar', 1, '2022-07-16 21:44:28', '2022-09-09 19:08:34', 1);
-INSERT INTO `sys_menu` VALUES (3, 0, '角色管理', '/sys/roles', 'sys:role:list', 'sys/Role', 1, 'fold', 2, '2022-07-16 21:46:55', '2022-07-16 21:46:57', 1);
-INSERT INTO `sys_menu` VALUES (4, 0, '菜单管理', '/sys/menus', 'sys:menu:list', 'sys/Menu', 1, 'grid', 3, '2022-07-18 16:32:50', '2022-07-18 16:32:53', 1);
-INSERT INTO `sys_menu` VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'setting', 2, '2022-07-18 16:37:16', '2022-07-18 16:37:16', 1);
-INSERT INTO `sys_menu` VALUES (6, 5, '数字字典', '/sys/menus', 'sys:dict:list', 'sys/Dict', 1, 'collection', 1, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (7, 3, '添加角色', NULL, 'sys:role:save', NULL, 2, NULL, 1, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 0);
-INSERT INTO `sys_menu` VALUES (9, 2, '添加用户', NULL, 'sys:tools', NULL, 2, NULL, 1, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (10, 2, '修改用户', NULL, 'sys:tools', NULL, 2, NULL, 2, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (11, 2, '删除用户', NULL, 'sys:tools', NULL, 2, NULL, 3, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (12, 2, '分配角色', NULL, 'sys:tools', NULL, 2, NULL, 4, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (13, 2, '重置密码', NULL, 'sys:tools', NULL, 2, NULL, 5, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (14, 3, '修改角色', NULL, 'sys:tools', NULL, 2, NULL, 2, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (15, 3, '删除角色', NULL, 'sys:tools', NULL, 2, NULL, 3, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (16, 3, '分配权限', NULL, 'sys:tools', NULL, 2, NULL, 5, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (17, 4, '添加菜单', NULL, 'sys:tools', NULL, 2, NULL, 1, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (18, 4, '修改菜单', NULL, 'sys:menu:update', NULL, 2, NULL, 2, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
-INSERT INTO `sys_menu` VALUES (19, 4, '删除菜单', NULL, 'sys:menu:delete', NULL, 0, NULL, 3, '2022-07-18 16:48:49', '2022-07-18 16:48:49', 1);
+INSERT INTO `sys_menu` VALUES (1, 0, '权限管理', '无', 'sys:manage', '无', 0, 'el-icon-s-grid', 9, '2022-07-16 21:44:28', '2022-09-28 18:30:22', 1);
+INSERT INTO `sys_menu` VALUES (2, 1, '用户管理', '/user', 'sys:user:list', '/Manage/Main/Sys/User', 1, 'el-icon-user-solid', 1, '2022-07-16 21:44:28', '2022-09-28 18:28:45', 1);
+INSERT INTO `sys_menu` VALUES (3, 1, '角色管理', '/role', 'sys:role:list', '/Manage/Main/Sys/Role', 1, 'el-icon-s-custom', 2, '2022-07-16 21:46:55', '2022-09-28 18:28:53', 1);
+INSERT INTO `sys_menu` VALUES (4, 1, '菜单管理', '/menu', 'sys:menu:list', '/Manage/Main/Sys/Menu', 1, 'el-icon-menu', 3, '2022-07-18 16:32:50', '2022-09-28 18:28:56', 1);
+INSERT INTO `sys_menu` VALUES (5, 0, '系统工具', '无', 'sys:tools', '无', 0, 'el-icon-s-tools', 10, '2022-07-18 16:37:16', '2022-09-29 13:38:16', 1);
+INSERT INTO `sys_menu` VALUES (6, 5, '数字字典', '/dataDictionary', 'sys:dict:list', '/Manage/DataDictionary', 1, 'el-icon-collection', 1, '2022-07-18 16:48:49', '2022-09-28 07:23:37', 1);
+INSERT INTO `sys_menu` VALUES (7, 3, '添加角色', '无', 'sys:role:save', '无', 2, '无', 1, '2022-07-18 16:48:49', '2022-09-28 18:58:12', 1);
+INSERT INTO `sys_menu` VALUES (9, 2, '添加用户', '无', 'sys:user:save', '无', 2, '无', 1, '2022-07-18 16:48:49', '2022-09-28 18:57:56', 1);
+INSERT INTO `sys_menu` VALUES (10, 2, '修改用户', '无', 'sys:user:update', '无', 2, '无', 2, '2022-07-18 16:48:49', '2022-09-28 18:57:59', 1);
+INSERT INTO `sys_menu` VALUES (11, 2, '删除用户', '无', 'sys:user:delete', '无', 2, '无', 3, '2022-07-18 16:48:49', '2022-09-28 18:58:01', 1);
+INSERT INTO `sys_menu` VALUES (12, 2, '分配角色', '无', 'sys:user:role', '无', 2, '无', 4, '2022-07-18 16:48:49', '2022-09-28 18:58:03', 1);
+INSERT INTO `sys_menu` VALUES (13, 2, '重置密码', '无', 'sys:user:repass', '无', 2, '无', 5, '2022-07-18 16:48:49', '2022-09-28 18:58:05', 1);
+INSERT INTO `sys_menu` VALUES (14, 3, '修改角色', '无', 'sys:role:update', '无', 2, '无', 2, '2022-07-18 16:48:49', '2022-09-28 18:58:14', 1);
+INSERT INTO `sys_menu` VALUES (15, 3, '删除角色', '无', 'sys:role:delete', '无', 2, '无', 3, '2022-07-18 16:48:49', '2022-09-28 18:58:16', 1);
+INSERT INTO `sys_menu` VALUES (16, 3, '分配权限', '无', 'sys:role:perm', '无', 2, '无', 5, '2022-07-18 16:48:49', '2022-09-28 18:58:19', 1);
+INSERT INTO `sys_menu` VALUES (17, 4, '添加菜单', '无', 'sys:menu:save', '无', 2, '无', 1, '2022-07-18 16:48:49', '2022-09-28 18:58:28', 1);
+INSERT INTO `sys_menu` VALUES (18, 4, '修改菜单', '无', 'sys:menu:update', '无', 2, '无', 2, '2022-07-18 16:48:49', '2022-09-28 18:58:30', 1);
+INSERT INTO `sys_menu` VALUES (19, 4, '删除菜单', '无', 'sys:menu:delete', '无', 2, '无', 3, '2022-07-18 16:48:49', '2022-09-28 18:58:32', 1);
+INSERT INTO `sys_menu` VALUES (32, 0, '活动负责管理', '无', 'core:lead', '无', 0, 'el-icon-s-claim', 1, '2022-10-05 11:05:18', '2022-10-05 14:57:31', 1);
+INSERT INTO `sys_menu` VALUES (34, 32, '管理我的活动', '/manageMyActivity', NULL, NULL, 0, 'el-icon-menu', NULL, '2022-10-05 11:05:18', '2022-10-05 11:05:20', 1);
+INSERT INTO `sys_menu` VALUES (35, 0, '活动申请管理', '无', 'core:apply', '无', 0, 'el-icon-chat-line-round', 2, '2022-10-05 11:05:18', '2022-10-05 14:58:16', 1);
+INSERT INTO `sys_menu` VALUES (37, 35, '审核申请活动', '/reviewApplicationActivity', 'core:apply:list', NULL, 1, 'el-icon-menu', 1, '2022-10-05 11:05:18', '2022-10-05 15:01:18', 1);
+INSERT INTO `sys_menu` VALUES (38, 0, '部门管理', '无', 'core:asso', '无', 0, 'el-icon-office-building', 3, '2022-10-05 11:05:18', '2022-10-05 14:58:51', 1);
+INSERT INTO `sys_menu` VALUES (39, 38, '部门类型列表', '/deptType', 'core:assotype:list', '', 1, 'el-icon-menu', 1, '2022-10-05 11:05:18', '2022-10-05 15:00:31', 1);
+INSERT INTO `sys_menu` VALUES (40, 38, '部门列表', '/deptList', 'core:asso:list', NULL, 1, 'el-icon-menu', 1, '2022-10-05 11:05:18', '2022-10-05 15:00:44', 1);
+INSERT INTO `sys_menu` VALUES (41, 0, '打印管理', '无', 'sys:print', '无', 0, 'el-icon-printer', 1, '2022-10-05 11:05:18', '2022-10-05 14:57:49', 1);
+INSERT INTO `sys_menu` VALUES (42, 41, '文件列表', '/file', 'sys:file:list', '/Manage/Main/Print/File', 1, 'el-icon-menu', 1, '2022-10-05 11:09:48', '2022-10-05 15:01:35', 1);
+INSERT INTO `sys_menu` VALUES (43, 0, '备份管理', '无', 'sys:backup', '无', 0, 'el-icon-menu', 4, '2022-10-05 11:10:24', '2022-10-05 14:48:19', 1);
+INSERT INTO `sys_menu` VALUES (44, 43, '备份列表', '/backupAndRestore', 'sys:backup:list', '/Main/BackupAndRestore', 1, 'el-icon-refresh-left', 1, '2022-10-05 11:10:53', '2022-10-05 14:59:51', 1);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -405,7 +537,7 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` bigint NOT NULL,
   `menu_id` bigint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 201 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -420,23 +552,35 @@ INSERT INTO `sys_role_menu` VALUES (88, 3, 11);
 INSERT INTO `sys_role_menu` VALUES (89, 3, 12);
 INSERT INTO `sys_role_menu` VALUES (90, 3, 13);
 INSERT INTO `sys_role_menu` VALUES (91, 3, 3);
-INSERT INTO `sys_role_menu` VALUES (92, 0, 2);
-INSERT INTO `sys_role_menu` VALUES (93, 0, 9);
-INSERT INTO `sys_role_menu` VALUES (94, 0, 10);
-INSERT INTO `sys_role_menu` VALUES (95, 0, 11);
-INSERT INTO `sys_role_menu` VALUES (96, 0, 12);
-INSERT INTO `sys_role_menu` VALUES (97, 0, 13);
-INSERT INTO `sys_role_menu` VALUES (98, 0, 3);
-INSERT INTO `sys_role_menu` VALUES (99, 0, 7);
-INSERT INTO `sys_role_menu` VALUES (100, 0, 14);
-INSERT INTO `sys_role_menu` VALUES (101, 0, 15);
-INSERT INTO `sys_role_menu` VALUES (102, 0, 16);
-INSERT INTO `sys_role_menu` VALUES (103, 0, 5);
-INSERT INTO `sys_role_menu` VALUES (104, 0, 6);
-INSERT INTO `sys_role_menu` VALUES (105, 0, 4);
-INSERT INTO `sys_role_menu` VALUES (106, 0, 17);
-INSERT INTO `sys_role_menu` VALUES (107, 0, 18);
-INSERT INTO `sys_role_menu` VALUES (108, 0, 19);
+INSERT INTO `sys_role_menu` VALUES (173, 0, 32);
+INSERT INTO `sys_role_menu` VALUES (174, 0, 34);
+INSERT INTO `sys_role_menu` VALUES (175, 0, 35);
+INSERT INTO `sys_role_menu` VALUES (176, 0, 37);
+INSERT INTO `sys_role_menu` VALUES (177, 0, 38);
+INSERT INTO `sys_role_menu` VALUES (178, 0, 39);
+INSERT INTO `sys_role_menu` VALUES (179, 0, 40);
+INSERT INTO `sys_role_menu` VALUES (180, 0, 41);
+INSERT INTO `sys_role_menu` VALUES (181, 0, 42);
+INSERT INTO `sys_role_menu` VALUES (182, 0, 43);
+INSERT INTO `sys_role_menu` VALUES (183, 0, 44);
+INSERT INTO `sys_role_menu` VALUES (184, 0, 1);
+INSERT INTO `sys_role_menu` VALUES (185, 0, 2);
+INSERT INTO `sys_role_menu` VALUES (186, 0, 9);
+INSERT INTO `sys_role_menu` VALUES (187, 0, 10);
+INSERT INTO `sys_role_menu` VALUES (188, 0, 11);
+INSERT INTO `sys_role_menu` VALUES (189, 0, 12);
+INSERT INTO `sys_role_menu` VALUES (190, 0, 13);
+INSERT INTO `sys_role_menu` VALUES (191, 0, 3);
+INSERT INTO `sys_role_menu` VALUES (192, 0, 7);
+INSERT INTO `sys_role_menu` VALUES (193, 0, 14);
+INSERT INTO `sys_role_menu` VALUES (194, 0, 15);
+INSERT INTO `sys_role_menu` VALUES (195, 0, 16);
+INSERT INTO `sys_role_menu` VALUES (196, 0, 4);
+INSERT INTO `sys_role_menu` VALUES (197, 0, 17);
+INSERT INTO `sys_role_menu` VALUES (198, 0, 18);
+INSERT INTO `sys_role_menu` VALUES (199, 0, 19);
+INSERT INTO `sys_role_menu` VALUES (200, 0, 5);
+INSERT INTO `sys_role_menu` VALUES (201, 0, 6);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -467,7 +611,7 @@ CREATE TABLE `sys_user`  (
 INSERT INTO `sys_user` VALUES (1, 'GitXulti', '13178017923', '$2a$10$8jXPK5DSpKPV9xqKAxvhPObEq6U6iVawl1JUk4W41LTOsYxVqWnlC', 0, 'http://localhost:18888/product/headImage/users/GitXulti/1_45371516d719451f.png', '1449903582@qq.com', '厦门', 9999, '好像做一个基于NLP和过滤协同的大学生活动管理与推荐的前后端分离系统呀', '2022-09-02 21:07:45', '2022-09-23 16:47:02', '2022-09-02 21:07:51', 1);
 INSERT INTO `sys_user` VALUES (2, 'ZhiKun', '12351', '$2a$10$3uZPRrBu6K0K2ik4q734iusfybCFClaKYn3zvAVrOowuBiv4oKW..', 0, 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png', '4857@qq.com', '泉州', 880, '纸上学来总觉浅，还是没有舍友卷', '2022-09-06 23:19:32', '2022-09-06 23:19:35', '2022-09-06 23:19:37', 1);
 INSERT INTO `sys_user` VALUES (3, 'JinPo', '18250629765', '$2a$10$09DJhCPBIpDZbHxeAdwzQei6h.QKotBurceO1UnJOQ.mMMZ6iNfyu', 0, 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png', '412312857@qq.com', '泉州', 500, '幸好我偷偷滴学了Spring+SpringMVC+Mybatis。', '2022-09-07 09:42:33', '2022-09-08 09:52:24', '2022-09-07 09:42:39', 1);
-INSERT INTO `sys_user` VALUES (4, 'admin', '86+771238673', '$2a$10$LrrMw37yK4e7./tNRpXaDu70y858X5C6Fmk2kPoC6G0k7PFzcdGry', 0, 'http://localhost:18888/product/headImage/users/admin/4_0de067ebc2ce40b5.png', '2376928623@qq.com', '福建省厦门市集美区厦门理工学院知行苑4-401', 11110, '还好我是管理员呀', '2022-09-07 11:18:09', '2022-09-19 18:53:27', '2022-09-07 11:18:15', 1);
+INSERT INTO `sys_user` VALUES (4, 'admin', '86+771238673', '$2a$10$LrrMw37yK4e7./tNRpXaDu70y858X5C6Fmk2kPoC6G0k7PFzcdGry', 0, 'http://localhost:18888/product/headImage/users/admin/4_0de067ebc2ce40b5.png', '2376928623@qq.com', '福建省厦门市集美区厦门理工学院知行苑4-401', 11110, '还好我是管理员呀234', '2022-09-07 11:18:09', '2022-09-19 18:53:27', '2022-09-07 11:18:15', 1);
 INSERT INTO `sys_user` VALUES (5, 'test', '1312563', '$2a$10$ZijLZFWNmDgdYkw9DKrjqO0UwdBoLiSMfJS6spREi0VszdZjRzwrO', 1, 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png', '1112316557@qq.com', '漳州', 1, '关于我做项目，舍友偷偷卷我这件事', '2022-09-08 09:03:35', '2022-09-08 10:22:42', '2022-09-08 09:03:40', 1);
 INSERT INTO `sys_user` VALUES (7, 'myname', '131313', '111', 1, 'png', '1231@qq.com', 'XiaMen', 999, 'nong', '2022-09-09 10:56:22', '2022-09-09 10:56:22', '2022-09-09 10:56:22', 1);
 
@@ -480,15 +624,13 @@ CREATE TABLE `sys_user_role`  (
   `user_id` bigint NOT NULL,
   `role_id` bigint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (40, 5, 0);
 INSERT INTO `sys_user_role` VALUES (41, 5, 5);
-INSERT INTO `sys_user_role` VALUES (44, 4, 4);
-INSERT INTO `sys_user_role` VALUES (45, 4, 5);
 INSERT INTO `sys_user_role` VALUES (51, 2, 2);
 INSERT INTO `sys_user_role` VALUES (52, 2, 3);
 INSERT INTO `sys_user_role` VALUES (53, 2, 5);
@@ -503,120 +645,11 @@ INSERT INTO `sys_user_role` VALUES (76, 1, 2);
 INSERT INTO `sys_user_role` VALUES (77, 1, 3);
 INSERT INTO `sys_user_role` VALUES (78, 1, 4);
 INSERT INTO `sys_user_role` VALUES (79, 1, 5);
-
--- ----------------------------
--- Table structure for top_host
--- ----------------------------
-DROP TABLE IF EXISTS `top_host`;
-CREATE TABLE `top_host`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `host_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主机名',
-  `host_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主机ip地址',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of top_host
--- ----------------------------
-INSERT INTO `top_host` VALUES (1, '本地主机', '120.41.16.89');
-
--- ----------------------------
--- Table structure for top_host_log
--- ----------------------------
-DROP TABLE IF EXISTS `top_host_log`;
-CREATE TABLE `top_host_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `host_id` bigint NOT NULL COMMENT '主机',
-  `server_id` bigint NOT NULL COMMENT '服务器',
-  `serve_date` datetime NULL DEFAULT NULL COMMENT '日期',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of top_host_log
--- ----------------------------
-INSERT INTO `top_host_log` VALUES (1, 1, 1, '2022-09-06 21:12:11');
-
--- ----------------------------
--- Table structure for top_host_type
--- ----------------------------
-DROP TABLE IF EXISTS `top_host_type`;
-CREATE TABLE `top_host_type`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `host_id` bigint NOT NULL COMMENT '主机',
-  `host_name_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主机名',
-  `host_remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of top_host_type
--- ----------------------------
-INSERT INTO `top_host_type` VALUES (1, 1, '0', '中央主机、服务主机');
-INSERT INTO `top_host_type` VALUES (2, 2, '1', '服务主机');
-INSERT INTO `top_host_type` VALUES (3, 3, '1', '服务主机');
-
--- ----------------------------
--- Table structure for top_server_connect
--- ----------------------------
-DROP TABLE IF EXISTS `top_server_connect`;
-CREATE TABLE `top_server_connect`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `host_id_1` bigint NOT NULL COMMENT '服务器',
-  `host_id_2` bigint NOT NULL COMMENT '服务器',
-  `host_connect_staus` int NULL DEFAULT NULL COMMENT '关联状态',
-  `server_connect_remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of top_server_connect
--- ----------------------------
-INSERT INTO `top_server_connect` VALUES (1, 1, 2, 1, '集美区互联通道');
-INSERT INTO `top_server_connect` VALUES (2, 1, 3, 1, '思明-集美互联通道');
-
--- ----------------------------
--- Table structure for top_server_log
--- ----------------------------
-DROP TABLE IF EXISTS `top_server_log`;
-CREATE TABLE `top_server_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `server_id` bigint NOT NULL COMMENT '主机',
-  `server_log_average` double NOT NULL COMMENT '平均负载百分比',
-  `server_log_date` datetime NULL DEFAULT NULL COMMENT '日期',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of top_server_log
--- ----------------------------
-INSERT INTO `top_server_log` VALUES (1, 1, 50, '2022-09-06 21:07:43');
-INSERT INTO `top_server_log` VALUES (2, 1, 70, '2022-09-06 21:07:58');
-INSERT INTO `top_server_log` VALUES (3, 1, 55, '2022-09-06 21:08:26');
-
--- ----------------------------
--- Table structure for top_sever
--- ----------------------------
-DROP TABLE IF EXISTS `top_sever`;
-CREATE TABLE `top_sever`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `sever_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主机名',
-  `sever_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主机ip地址',
-  `sever_cpu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'CPU核心',
-  `sever_memory` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内存大小',
-  `sever_region` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主机地区',
-  `sever_host_type_id` bigint NULL DEFAULT NULL COMMENT '主机类型',
-  `sever_port` int NOT NULL COMMENT '主机端口',
-  `x_position` double NOT NULL COMMENT 'x坐标',
-  `y_position` double NOT NULL COMMENT 'y坐标',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of top_sever
--- ----------------------------
-INSERT INTO `top_sever` VALUES (1, '厦门理工学院（集美校区）', '120.41.16.89', 'i7-10875', '2T', '厦门集美区', 1, 80, 118.093221, 24.630356);
-INSERT INTO `top_sever` VALUES (2, '厦门理工学院（厦软校区）', '120.41.16.89', 'R5-4800', '1T', '厦门集美区', 1, 80, 118.080766, 24.622277);
-INSERT INTO `top_sever` VALUES (3, '厦门理工学院（思明校区）', '120.41.16.89', 'i7-10750', '1T', '厦门思明区', 1, 80, 118.09682, 24.444742);
+INSERT INTO `sys_user_role` VALUES (80, 4, 0);
+INSERT INTO `sys_user_role` VALUES (81, 4, 1);
+INSERT INTO `sys_user_role` VALUES (82, 4, 2);
+INSERT INTO `sys_user_role` VALUES (83, 4, 3);
+INSERT INTO `sys_user_role` VALUES (84, 4, 4);
+INSERT INTO `sys_user_role` VALUES (85, 4, 5);
 
 SET FOREIGN_KEY_CHECKS = 1;

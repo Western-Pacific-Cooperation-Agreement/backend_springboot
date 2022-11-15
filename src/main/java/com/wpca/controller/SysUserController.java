@@ -88,8 +88,6 @@ public class SysUserController extends BaseController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:user:list')")
     public Result page(String username) {
-
-
         Page<SysUser> users = sysUserService.page(getPage(),
                 new QueryWrapper<SysUser>()
                         .like(StrUtil.isNotBlank(username), "username", username)

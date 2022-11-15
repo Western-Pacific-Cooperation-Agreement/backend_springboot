@@ -17,6 +17,13 @@ import javafx.animation.Timeline;
 import lombok.SneakyThrows;
 import org.apache.maven.surefire.shade.org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -33,6 +40,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import static cn.hutool.core.swing.RobotUtil.click;
+
 /**
  * <p>
  *  前端控制器
@@ -43,7 +52,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/backup")
-public class SysBackupController extends BaseController {
+//@Configuration
+//@EnableScheduling
+public class SysBackupController extends BaseController
+//        implements SchedulingConfigurer
+
+{
 
     @Autowired
     SysBackupService sysBackupService;
@@ -203,16 +217,27 @@ public class SysBackupController extends BaseController {
     public Result setBackupTime(@PathVariable String time) {
         Long timeLong=Long.parseLong(time);
         System.out.println(time);
+        //设置备份时间
         redisUtil.set("BackupTime"+getUsername(),timeLong);
-         redisUtil.set("TIME"+getUsername(), timeLong,timeLong);
+        //设置当先剩余时间位备份时间 进行重置
+        redisUtil.set("TIME"+getUsername(), timeLong,timeLong);
+
         return Result.succ("");
     }
 
     //查看过期时间（倒计时）
     @GetMapping("/getTime")
     public Result getTime() {
+
         Long timeLong;
+
         Long time1 = (Long) redisUtil.getExpire("TIME"+getUsername());
+
+        //如果时间小于0或是没有时间  就设置一个默认的时间  防止前端重复备份
+        if(time1<=0||time1==null){
+            Result.succ("100000000");
+        }
+
         return Result.succ(time1);
     }
 
@@ -301,6 +326,36 @@ public class SysBackupController extends BaseController {
 
     }
 
+
+
+
+//    /**
+//     * 执行定时任务.
+//     */
+//    @Override
+//    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+//
+//        taskRegistrar.addTriggerTask(
+//                //1.添加任务内容(Runnable)
+////                () -> System.out.println("执行动态定时任务: " + LocalDateTime.now().toLocalTime()),
+//                () -> click(),
+//                //2.设置执行周期(Trigger)
+//                triggerContext -> {
+//                    //2.1 从数据库获取执行周期
+////                    BackupConfig backupConfig = backupConfigMapper.selectById(1);
+////                   String cron = backupConfig.getCron();
+//                    String cron = (String) redisUtil.get("BackupTime"+getUsername());
+//                    System.out.println(cron);
+//                    //2.2 合法性校验.
+//                    if (StringUtils.isEmpty(cron)) {
+//                        // Omitted Code ..
+//                        doBackup();
+//                    }
+//                    //2.3 返回执行周期(Date)
+//                    return new CronTrigger(cron).nextExecutionTime(triggerContext);
+//                }
+//        );
+//    }
 
 
 }

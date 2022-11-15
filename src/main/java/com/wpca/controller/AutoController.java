@@ -76,7 +76,7 @@ public class AutoController extends BaseController {
         SysUser sysUser= sysUserService.getByUsername(principal.getName());
         return Result.succ(MapUtil.builder()
                 .put("id",sysUser.getId())
-                .put("username",sysUser.getUsername())
+                    .put("username",sysUser.getUsername())
                 .put("avater",sysUser.getAvatar())
                 .put("created",sysUser.getCreateTime())
                 .put("update",sysUser.getUpdateTime())

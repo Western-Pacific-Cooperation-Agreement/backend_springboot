@@ -3,6 +3,7 @@ package com.wpca.test;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.Test;
 
 import java.util.Date;
 
@@ -19,4 +20,8 @@ public class FillData {
     private String name;
     private double number;
     private Date date;
+
+
+
+
 }

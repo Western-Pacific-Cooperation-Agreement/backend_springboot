@@ -19,6 +19,8 @@ spring.main.allow-circular-references: true
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # Redis 配置
 spring.redis.host: localhost
@@ -29,4 +31,9 @@ wpca:
     header: Authorization
     expire: 604800 #7天
     secret: xrjert123jkhi80134ghjk3ghjkfk543  # 密钥
+
+
+logging:
+  level:
+    root: info
 
